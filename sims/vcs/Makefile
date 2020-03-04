@@ -92,12 +92,11 @@ $(sim_vsrcs_printf) : %.printf.v : %.v
 # vcs simulator rules
 #############################################################################
 $(sim): $(sim_vsrcs_printf) $(sim_common_files)
-	rm -rf csrc && $(VCS) $(VCS_OPTS) -o $@ \
-	-debug_pp
+	rm -rf csrc && $(VCS) $(VCS_OPTS) -o $@ -debug_pp
 
 $(sim_debug) : $(sim_vsrcs_printf) $(sim_common_files)
-	rm -rf csrc && $(VCS) $(VCS_OPTS) -o $@ \
-	+define+DEBUG -debug_pp
+	rm -rf csrc && $(VCS) $(VCS_OPTS) -o $@ +define+DEBUG \
+		-debug_pp -debug_access+all
 
 #############################################################################
 # create a vcs vpd rule
