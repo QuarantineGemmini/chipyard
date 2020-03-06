@@ -26,3 +26,10 @@ fi
 # add convenience gemmini scripts
 export PATH="$PATH:$DIR/generators/gemmini/software/sim_scripts"
 
+for d in "$DIR" "$DIR/generators/gemmini" \
+    "$DIR/generators/gemmini/software/gemmini-rocc-tests"; do
+  cd $d
+  git checkout cs252_ee290_project
+done
+cd "$DIR"
+
