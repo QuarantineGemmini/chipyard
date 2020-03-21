@@ -18,7 +18,9 @@ You must have installed the new checkout already.
 -----------------------------------------------------------------------------
 How to set up a new shell environment
 =============================================================================
-Run this in any new bash shell. you must have installed the new checkout
+Run this in any new bash shell. you must have installed the new checkout.
+NOTE: this will check out the `cs252_ee290_project` branch on multiple
+git submodules so any changes you make won't be to a detached head!
 
     cd chipyard
     source sourceme.sh

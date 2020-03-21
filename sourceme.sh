@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO:!!!!! don't let the buildsim_gemmini* scripts source this sourceme...
-
 DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 CURHOST="$(hostname -f | awk '{print tolower($0)}')"
 
@@ -27,6 +25,7 @@ fi
 export PATH="$PATH:$DIR/generators/gemmini/software/sim_scripts"
 
 for d in "$DIR" "$DIR/generators/gemmini" \
+    "$DIR/toolchains/esp-tools/riscv-isa-sim" \
     "$DIR/generators/gemmini/software/gemmini-rocc-tests"; do
   cd $d
   git checkout cs252_ee290_project
