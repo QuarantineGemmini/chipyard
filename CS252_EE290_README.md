@@ -102,3 +102,25 @@ buildsim_gemmini -vcs lab3
 buildworkload_gemmini -fsm_tiler bare
 runsim_gemmini -bare -vcs -lab3 2
 ls sims/vcs/logs/
+
+
+-----------------------------------------------------------------------------
+Bugs
+=============================================================================
+- spike sp_matrices and accum_rows might not match the gemmini_params.h
+  for a given workload, which will cause orig_tiler and fsm_tiler to produce
+  inaccurate results (or at least throw an invalid index exception
+
+- repeating_bias isa insn is currently hacky, 
+  maybe include it into the config_ex insn
+
+- the depthwise-convoluation and im2col are awful (spike mobilenet output for hw_tiler):
+
+    Total cycles: 2214909281
+    Matmul cycles: 4399
+    Im2col cycles: 20741195
+    Pooling cycles: 0
+    Depthwise convolution cycles: 2162886994
+    Other cycles: 1479722
+    PASS
+
