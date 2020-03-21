@@ -43,8 +43,9 @@
 	shallow = true
 [submodule "toolchains/riscv-tools/riscv-isa-sim"]
 	path = toolchains/riscv-tools/riscv-isa-sim
-  #url = https://github.com/riscv/riscv-isa-sim.git
-  url = git@github.com:ssteffl/ee290hw4ml-lab3-riscv-isa-sim.git
+  url = https://github.com/riscv/riscv-isa-sim.git
+  # NOTE: not using riscv-isa-sim for gemmini
+  #url = git@github.com:ssteffl/ee290hw4ml-lab3-riscv-isa-sim.git
 [submodule "toolchains/riscv-tools/riscv-pk"]
 	path = toolchains/riscv-tools/riscv-pk
 	url = https://github.com/riscv/riscv-pk.git
@@ -59,7 +60,9 @@
 	url = https://github.com/ucb-bar/esp-gnu-toolchain.git
 [submodule "toolchains/esp-tools/riscv-isa-sim"]
 	path = toolchains/esp-tools/riscv-isa-sim
-	url = https://github.com/ucb-bar/esp-isa-sim.git
+  #url = https://github.com/ucb-bar/esp-isa-sim.git
+  #url = https://github.com/dan-fritchman/esp-isa-sim.git
+  url = git@github.com:ssteffl/ee290hw4ml-lab3-esp-isa-sim.git
 [submodule "toolchains/esp-tools/riscv-pk"]
 	path = toolchains/esp-tools/riscv-pk
 	url = https://github.com/riscv/riscv-pk.git

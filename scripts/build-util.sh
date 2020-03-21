@@ -11,7 +11,7 @@ ncpu="${NPROC:-$(getconf _NPROCESSORS_ONLN || # GNU
     :)}" 2>/dev/null
 case ${ncpu} in
 ''|*[!0-9]*) ;; # Ignore non-integer values
-*) export MAKEFLAGS="-j ${ncpu} ${MAKEFLAGS}" ;;
+*) export MAKEFLAGS="-j ${ncpu} ${MAKEFLAGS:-}" ;;
 esac
 
 MAKE=$(command -v gnumake || command -v gmake || command -v make)
