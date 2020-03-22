@@ -49,24 +49,47 @@ sim_vsrcs_printf := $(sim_vsrcs:.v=.printf.v)
 #########################################################################################
 # verilator binary and flags
 #########################################################################################
-VERILATOR := $(INSTALLED_VERILATOR) --cc --exe
+#VERILATOR := $(INSTALLED_VERILATOR) --cc --exe
+VERILATOR := $(INSTALLED_VERILATOR) --cc
 
+# slow mode, medium mode, fast mode
 CXXFLAGS := $(CXXFLAGS) -O1 -std=c++11 -I$(RISCV)/include -D__STDC_FORMAT_MACROS
+#CXXFLAGS := $(CXXFLAGS) -O2 -std=c++11 -I$(RISCV)/include -D__STDC_FORMAT_MACROS
+#CXXFLAGS := $(CXXFLAGS) -O3 -std=c++11 -I$(RISCV)/include -D__STDC_FORMAT_MACROS
 LDFLAGS := $(LDFLAGS) -L$(RISCV)/lib -Wl,-rpath,$(RISCV)/lib -L$(sim_dir) -lfesvr -lpthread
 
 VERILATOR_CC_OPTS = \
-	-O3 \
 	-CFLAGS "$(CXXFLAGS) -DTEST_HARNESS=V$(VLOG_MODEL) -DVERILATOR" \
 	-CFLAGS "-I$(build_dir) -include $(build_dir)/$(long_name).plusArgs -include $(build_dir)/verilator.h" \
 	-LDFLAGS "$(LDFLAGS)"
 
+# slow mode, fast mode
+VMODE = -O0
+#VMODE = -O3
+
+# no profiling, lots of profiling
+VPROF_MODE = 
+#VPROF_MODE = --prof-cfuncs
+
+# use verilator_gantt to view this
+#VPROF_MODE = --prof-cfuncs --prof-threads
+
+# if these are higher, than compile is slower but runtime is faster
+#--output-split 20000 \
+#--output-split-cfuncs 10000
+# slow, fast
+SPLITS = 10000
+#SPLITS = 100000
+
 VERILATOR_NONCC_OPTS = \
+	$(VMODE) \
+	$(VPROF_MODE) \
 	--top-module $(VLOG_MODEL) \
 	+define+PRINTF_COND=\$$c\(\"verbose\",\"\&\&\"\,\"done_reset\"\) \
 	+define+STOP_COND=\$$c\(\"done_reset\"\) \
 	--assert \
-	--output-split 10000 \
-	--output-split-cfuncs 100 \
+	--output-split $(SPLITS) \
+	--output-split-cfuncs $(SPLITS) \
 	$(sim_vsrcs_printf) \
 	-f $(sim_common_files)
 

@@ -103,10 +103,16 @@ buildworkload_gemmini -fsm_tiler bare
 runsim_gemmini -bare -vcs -lab3 2
 ls sims/vcs/logs/
 
-
 -----------------------------------------------------------------------------
 Bugs
 =============================================================================
+- run everything on PK, and get rid of "baremetal" in workload names, since
+  they are really just tethered
+  - if we really wanted baremetal (which we don't), then we should not use 
+    TSI/DTM to load the elf and proxy write() syscalls...
+  - gemmini is currently targeted only to run on linux, so use pk to exploit
+    full file-system capabilities
+
 - verilator is super slow compared to vcs. need to debug why.
 
 - ee290 only supports weight-stationary mode, so template fails on verilator!
