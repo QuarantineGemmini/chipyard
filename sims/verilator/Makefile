@@ -40,6 +40,12 @@ debug: $(sim_debug)
 include $(base_dir)/common.mk
 include $(sim_dir)/verilator.mk
 
+#############################################################################
+# selectively enabling printfs
+#############################################################################
+ENABLE_PRINTF_PATTERN ?=
+sim_vsrcs_printf := $(sim_vsrcs:.v=.printf.v)
+
 #########################################################################################
 # verilator binary and flags
 #########################################################################################
@@ -61,7 +67,7 @@ VERILATOR_NONCC_OPTS = \
 	--assert \
 	--output-split 10000 \
 	--output-split-cfuncs 100 \
-	$(sim_vsrcs) \
+	$(sim_vsrcs_printf) \
 	-f $(sim_common_files)
 
 VERILATOR_OPTS = $(VERILATOR_CC_OPTS) $(VERILATOR_NONCC_OPTS)
@@ -78,17 +84,24 @@ model_header_debug = $(model_dir_debug)/V$(VLOG_MODEL).h
 model_mk = $(model_dir)/V$(VLOG_MODEL).mk
 model_mk_debug = $(model_dir_debug)/V$(VLOG_MODEL).mk
 
+#############################################################################
+# selectively enable verbose logging
+#############################################################################
+# see GNU Make static patterns
+$(sim_vsrcs_printf) : %.printf.v : %.v
+	$(base_dir)/scripts/sim/enable_printfs $< $@ "$(ENABLE_PRINTF_PATTERN)"
+
 #########################################################################################
 # build makefile fragment that builds the verilator sim rules
 #########################################################################################
 
-$(model_mk): $(sim_vsrcs) $(sim_common_files) $(INSTALLED_VERILATOR)
+$(model_mk): $(sim_vsrcs_printf) $(sim_common_files) $(INSTALLED_VERILATOR)
 	rm -rf $(build_dir)/$(long_name)
 	mkdir -p $(build_dir)/$(long_name)
 	$(VERILATOR) $(VERILATOR_OPTS) -o $(sim) -Mdir $(model_dir) -CFLAGS "-include $(model_header)"
 	touch $@
 
-$(model_mk_debug): $(sim_vsrcs) $(sim_common_files) $(INSTALLED_VERILATOR)
+$(model_mk_debug): $(sim_vsrcs_printf) $(sim_common_files) $(INSTALLED_VERILATOR)
 	rm -rf $(build_dir)/$(long_name)
 	mkdir -p $(build_dir)/$(long_name).debug
 	$(VERILATOR) $(VERILATOR_OPTS) -o $(sim_debug) --trace -Mdir $(model_dir_debug) -CFLAGS "-include $(model_header_debug)"

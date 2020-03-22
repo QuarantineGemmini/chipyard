@@ -107,12 +107,25 @@ ls sims/vcs/logs/
 -----------------------------------------------------------------------------
 Bugs
 =============================================================================
+- verilator is super slow compared to vcs. need to debug why.
+
+- ee290 only supports weight-stationary mode, so template fails on verilator!
+  also, its nefarious becuase no error is propagated back to the user, and 
+  no $display() is printed for debugging
+
 - spike sp_matrices and accum_rows might not match the gemmini_params.h
   for a given workload, which will cause orig_tiler and fsm_tiler to produce
   inaccurate results (or at least throw an invalid index exception
 
 - repeating_bias isa insn is currently hacky, 
   maybe include it into the config_ex insn
+
+- support arbitrary sized matrices in hardware. need to pull in the patch that
+  hasan made. we will need these when comparing our model against the reference
+  model
+
+- the reference implementation of cifar-10 is broken. when you enable 
+  CHECK_RESULTS, they returned matrix is not what is expected!
 
 - the depthwise-convoluation and im2col are awful (spike mobilenet output for hw_tiler):
 
