@@ -49,51 +49,67 @@ sim_vsrcs_printf := $(sim_vsrcs:.v=.printf.v)
 #########################################################################################
 # verilator binary and flags
 #########################################################################################
-#VERILATOR := $(INSTALLED_VERILATOR) --cc --exe
-VERILATOR := $(INSTALLED_VERILATOR) --cc
+# NOTE: can't use -Wall, firrtl spits out 1000's of warnings that flag as erros
+#VERILATOR := $(INSTALLED_VERILATOR) --cc --exe -Wall
+VERILATOR := $(INSTALLED_VERILATOR) --cc --exe
 
-# slow mode, medium mode, fast mode
-CXXFLAGS := $(CXXFLAGS) -O1 -std=c++11 -I$(RISCV)/include -D__STDC_FORMAT_MACROS
-#CXXFLAGS := $(CXXFLAGS) -O2 -std=c++11 -I$(RISCV)/include -D__STDC_FORMAT_MACROS
-#CXXFLAGS := $(CXXFLAGS) -O3 -std=c++11 -I$(RISCV)/include -D__STDC_FORMAT_MACROS
-LDFLAGS := $(LDFLAGS) -L$(RISCV)/lib -Wl,-rpath,$(RISCV)/lib -L$(sim_dir) -lfesvr -lpthread
+RUNTIME_PROFILING_CFLAGS := 
+RUNTIME_PROFILING_VFLAGS := 
+#RUNTIME_PROFILING_CFLAGS := -p -gp
+#RUNTIME_PROFILING_VFLAGS := --prof-cfuncs --prof-threads
 
-VERILATOR_CC_OPTS = \
-	-CFLAGS "$(CXXFLAGS) -DTEST_HARNESS=V$(VLOG_MODEL) -DVERILATOR" \
-	-CFLAGS "-I$(build_dir) -include $(build_dir)/$(long_name).plusArgs -include $(build_dir)/verilator.h" \
-	-LDFLAGS "$(LDFLAGS)"
+# 4 total speed settings: slow-mode, medium-mode, fast-mode, fast-mode+LTO
+#CMODE := -g
+#CMODE := -O1
+#CMODE := -O3
+#CMODE := -O3 -fbranch-probabilities
+CMODE := -O3 -fbranch-probabilities -flto
+
+CXXFLAGS := $(CXXFLAGS) \
+						$(RUNTIME_PROFILING_CFLAGS) \
+						$(CMODE) \
+						-std=c++11 \
+						-I$(RISCV)/include \
+						-D__STDC_FORMAT_MACROS \
+						-DTEST_HARNESS=V$(VLOG_MODEL) \
+						-DVERILATOR \
+						-I$(build_dir) \
+						-include $(build_dir)/$(long_name).plusArgs \
+						-include $(build_dir)/verilator.h
+
+LDFLAGS	:=	$(LDFLAGS) \
+						$(CMODE) \
+						-L$(RISCV)/lib \
+						-Wl,-rpath,$(RISCV)/lib \
+						-L$(sim_dir) \
+						-lfesvr \
+						-lpthread
+
+VERILATOR_CC_OPTS := -CFLAGS "$(CXXFLAGS)" -LDFLAGS "$(LDFLAGS)"
+
+#----------------------------------------------------------------------------
+# bwrc threads
+#RUNTIME_THREADS := 
+#RUNTIME_THREADS := --threads 4 --threads-dpi none
+#RUNTIME_THREADS := --threads 4 --threads-dpi all
+RUNTIME_THREADS := --threads 20 --threads-dpi all
 
 # slow mode, fast mode
-VMODE = -O0
-#VMODE = -O3
+#VMODE := -O0 --assert 
+#VMODE := --assert --output-split 10000 --output-split-cfuncs 10000
+VMODE := -O3 --x-assign fast --x-initial fast --noassert --output-split 10000 --output-split-cfuncs 10000
 
-# no profiling, lots of profiling
-VPROF_MODE = 
-#VPROF_MODE = --prof-cfuncs
-
-# use verilator_gantt to view this
-#VPROF_MODE = --prof-cfuncs --prof-threads
-
-# if these are higher, than compile is slower but runtime is faster
-#--output-split 20000 \
-#--output-split-cfuncs 10000
-# slow, fast
-SPLITS = 10000
-#SPLITS = 100000
-
-VERILATOR_NONCC_OPTS = \
+VERILATOR_NONCC_OPTS := \
+	$(RUNTIME_PROFILING_VFLAGS) \
+	$(RUNTIME_THREADS) \
 	$(VMODE) \
-	$(VPROF_MODE) \
 	--top-module $(VLOG_MODEL) \
 	+define+PRINTF_COND=\$$c\(\"verbose\",\"\&\&\"\,\"done_reset\"\) \
 	+define+STOP_COND=\$$c\(\"done_reset\"\) \
-	--assert \
-	--output-split $(SPLITS) \
-	--output-split-cfuncs $(SPLITS) \
 	$(sim_vsrcs_printf) \
 	-f $(sim_common_files)
 
-VERILATOR_OPTS = $(VERILATOR_CC_OPTS) $(VERILATOR_NONCC_OPTS)
+VERILATOR_OPTS := $(VERILATOR_CC_OPTS) $(VERILATOR_NONCC_OPTS)
 
 #########################################################################################
 # verilator build paths and file names

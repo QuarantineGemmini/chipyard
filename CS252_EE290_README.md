@@ -106,6 +106,9 @@ ls sims/vcs/logs/
 -----------------------------------------------------------------------------
 Bugs
 =============================================================================
+- emulator.cc is broken but thats in rocket-chip, so doubt i'll get my 
+  patch upstreamed
+
 - run everything on PK, and get rid of "baremetal" in workload names, since
   they are really just tethered
   - if we really wanted baremetal (which we don't), then we should not use 
@@ -113,7 +116,11 @@ Bugs
   - gemmini is currently targeted only to run on linux, so use pk to exploit
     full file-system capabilities
 
+- verilator-binary install is serialized on bwrc despite -j40 in MAKEFLAGS?
+
 - verilator is super slow compared to vcs. need to debug why.
+
+- verilator multithreading support broken
 
 - ee290 only supports weight-stationary mode, so template fails on verilator!
   also, its nefarious becuase no error is propagated back to the user, and 

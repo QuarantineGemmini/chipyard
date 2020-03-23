@@ -14,6 +14,11 @@ if [[ "$CURHOST" =~ ^eda-.*.eecs.berkeley.edu$ ]] ; then
 
   # use for debug-spike builds
   #source /home/ff/ee290-2/chipyard-debug-env.sh
+elif [[ "$CURHOST" =~ ^bwrc.*.eecs.berkeley.edu$ ]] ; then
+  #---------------------------------------------------------------------------
+  # bwrc builds
+  #---------------------------------------------------------------------------
+  source $DIR/env.sh
 else
   #---------------------------------------------------------------------------
   # local-machine builds
