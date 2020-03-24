@@ -7,6 +7,7 @@
 #########################################################################################
 base_dir=$(abspath ../..)
 sim_dir=$(abspath .)
+patch_dir=$(sim_dir)/patch
 
 #########################################################################################
 # include shared variables
@@ -54,16 +55,17 @@ sim_vsrcs_printf := $(sim_vsrcs:.v=.printf.v)
 VERILATOR := $(INSTALLED_VERILATOR) --cc --exe
 
 RUNTIME_PROFILING_CFLAGS := 
-RUNTIME_PROFILING_VFLAGS := 
-#RUNTIME_PROFILING_CFLAGS := -p -gp
+#RUNTIME_PROFILING_VFLAGS := 
+#RUNTIME_PROFILING_CFLAGS := -g -pg
 #RUNTIME_PROFILING_VFLAGS := --prof-cfuncs --prof-threads
+RUNTIME_PROFILING_VFLAGS := --prof-threads
 
 # 4 total speed settings: slow-mode, medium-mode, fast-mode, fast-mode+LTO
 #CMODE := -g
 #CMODE := -O1
 #CMODE := -O3
 #CMODE := -O3 -fbranch-probabilities
-CMODE := -O3 -fbranch-probabilities -flto
+CMODE := -O3 -fbranch-probabilities -flto -march=native
 
 CXXFLAGS := $(CXXFLAGS) \
 						$(RUNTIME_PROFILING_CFLAGS) \
@@ -78,6 +80,7 @@ CXXFLAGS := $(CXXFLAGS) \
 						-include $(build_dir)/verilator.h
 
 LDFLAGS	:=	$(LDFLAGS) \
+						$(RUNTIME_PROFILING_CFLAGS) \
 						$(CMODE) \
 						-L$(RISCV)/lib \
 						-Wl,-rpath,$(RISCV)/lib \
@@ -90,14 +93,16 @@ VERILATOR_CC_OPTS := -CFLAGS "$(CXXFLAGS)" -LDFLAGS "$(LDFLAGS)"
 #----------------------------------------------------------------------------
 # bwrc threads
 #RUNTIME_THREADS := 
-#RUNTIME_THREADS := --threads 4 --threads-dpi none
 #RUNTIME_THREADS := --threads 4 --threads-dpi all
-RUNTIME_THREADS := --threads 20 --threads-dpi all
+RUNTIME_THREADS := --threads 16 --threads-dpi all
+#RUNTIME_THREADS := --threads 20 --threads-dpi all
 
 # slow mode, fast mode
 #VMODE := -O0 --assert 
 #VMODE := --assert --output-split 10000 --output-split-cfuncs 10000
-VMODE := -O3 --x-assign fast --x-initial fast --noassert --output-split 10000 --output-split-cfuncs 10000
+VMODE :=	-O3 --x-assign fast --x-initial fast --noassert \
+					--output-split 10000 --output-split-cfuncs 10000
+#VMODE :=	-O3 --x-assign fast --x-initial fast --noassert
 
 VERILATOR_NONCC_OPTS := \
 	$(RUNTIME_PROFILING_VFLAGS) \
@@ -135,15 +140,23 @@ $(sim_vsrcs_printf) : %.printf.v : %.v
 #########################################################################################
 
 $(model_mk): $(sim_vsrcs_printf) $(sim_common_files) $(INSTALLED_VERILATOR)
-	rm -rf $(build_dir)/$(long_name)
-	mkdir -p $(build_dir)/$(long_name)
-	$(VERILATOR) $(VERILATOR_OPTS) -o $(sim) -Mdir $(model_dir) -CFLAGS "-include $(model_header)"
+	rm -rf $(model_dir)
+	mkdir -p $(model_dir)
+	# patched emulator.cc supports multithreaded HTIF
+	if [ -f $(build_dir)/emulator.cc ]; then rm $(build_dir)/emulator.cc; fi
+	cp $(patch_dir)/emulator.cc $(build_dir)/emulator.cc
+	$(VERILATOR) $(VERILATOR_OPTS) -o $(sim) \
+		-Mdir $(model_dir) -CFLAGS "-include $(model_header)"
 	touch $@
 
 $(model_mk_debug): $(sim_vsrcs_printf) $(sim_common_files) $(INSTALLED_VERILATOR)
-	rm -rf $(build_dir)/$(long_name)
-	mkdir -p $(build_dir)/$(long_name).debug
-	$(VERILATOR) $(VERILATOR_OPTS) -o $(sim_debug) --trace -Mdir $(model_dir_debug) -CFLAGS "-include $(model_header_debug)"
+	rm -rf $(model_dir_debug)
+	mkdir -p $(model_dir_debug)
+	# patched emulator.cc supports multithreaded HTIF
+	if [ -f $(build_dir)/emulator.cc ]; then rm $(build_dir)/emulator.cc; fi
+	cp $(patch_dir)/emulator.cc $(build_dir)/emulator.cc
+	$(VERILATOR) $(VERILATOR_OPTS) -o $(sim_debug) --trace \
+		-Mdir $(model_dir_debug) -CFLAGS "-include $(model_header_debug)"
 	touch $@
 
 #########################################################################################

@@ -1,11 +1,13 @@
 -----------------------------------------------------------------------------
 How to install a new checkout
 =============================================================================
+You should run the build-toolchains.sh only if you
 
     git checkout git@github.com:ssteffl/ee290hw4ml-lab3-chipyard.git chipyard
     cd chipyard
     ./scripts/init-submodules-no-riscv-tools.sh
     source sourceme.sh
+    ./script/build-toolchains.sh esp-tools
 
 -----------------------------------------------------------------------------
 How to install the riscv toolchain and spike simulator locally
@@ -13,7 +15,6 @@ How to install the riscv toolchain and spike simulator locally
 You must have installed the new checkout already.
 
     source sourceme.sh
-    ./script/build-toolchains.sh esp-tools
 
 -----------------------------------------------------------------------------
 How to set up a new shell environment
