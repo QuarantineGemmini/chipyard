@@ -6,6 +6,9 @@ CURHOST="$(hostname -f | awk '{print tolower($0)}')"
 # control which sockets and cores are used for multithreading on each host
 export NUMACTL=""
 
+# pull the multi-git into path
+export PATH="$PATH:$DIR"
+
 if [[ "$CURHOST" =~ ^eda-.*.eecs.berkeley.edu$ ]] ; then
   #---------------------------------------------------------------------------
   # cory eda-* envs
