@@ -86,7 +86,7 @@ run_cmd() {
         ;;
       merge)
         banner "git merge from '$arg' in $dir"
-        git merge -m "merging from $arg"
+        git merge -m "merging from $arg" $arg
         ;;
       *) err "invalid cmd: $cmd" ;;
     esac
