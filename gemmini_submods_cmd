@@ -1,0 +1,144 @@
+#!/bin/bash
+
+set -euo pipefail
+
+CY_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+
+#=============================================================================
+# subroutines
+#=============================================================================
+err() { echo "[ERROR]: $@"; exit 1; }
+info() { echo "[INFO]: $@"; }
+
+display_usage() {
+  cat <<EOF
+
+  gemmini_submods_cmd [options] <cmd> [option] [<cmd2> [option2]...]
+  --------------------------------------------------------
+  runs common git commands for each of the relevant gemmini submodules.
+  You should always run status before commit, to manually add any files by
+  hand!
+
+  commands
+  --------
+  checkout <branch>     --> checks out an existing local branch
+  new_branch <branch>   --> creates a new branch
+  del_branch <branch>   --> deletes branch locally and on the remote server.
+                             use with caution.
+  status                --> prints the status of each module
+  pull                  --> pulls the remote branches
+  push                  --> pushes the local branches
+  commit <msg>          --> creates a commit for each submodule with the 
+                            same message. 
+  merge <other>         --> merges other local branch into current branch
+
+  options
+  --------
+  -h|-help              --> display this help
+
+EOF
+  exit 1
+}
+
+#=============================================================================
+# main
+#=============================================================================
+banner() {
+  echo -e "\e[36m-------------------------------------------------------------------------"
+  echo "$@"
+  echo -e "--------------------------------------------------------------------------\e[0m"
+}
+
+run_cmd() {
+  local cmd=$1
+  local arg=$2
+
+  for dir in "$CY_DIR" \
+             "$CY_DIR/generators/gemmini" \
+             "$CY_DIR/generators/gemmini/software/gemmini-rocc-tests" \
+             "$CY_DIR/toolchains/esp-tools/riscv-isa-sim"; do
+    cd $dir
+    case $cmd in
+      checkout)
+        banner "git checkout $arg in $dir"
+        git checkout $arg
+        ;;
+      new_branch)
+        banner "git -b checkout $arg and git push -u origin $arg in $dir"
+        git checkout -b $arg
+        git push -u origin $arg
+        ;;
+      del_branch)
+        banner "git branch -d and git push --delete origin $arg in $dir"
+        git branch -d $arg
+        git push --delete origin $arg
+        ;;
+      status)
+        banner "git status in $dir"
+        git status
+        ;;
+      push)
+        banner "git push in $dir"
+        git push
+        ;;
+      pull)
+        banner "git fetch --all and git pull in $dir"
+        git fetch --all
+        git pull
+        ;;
+      commit)
+        banner "git commit '$arg' in $dir"
+        git commit -am "$arg"
+        ;;
+      merge)
+        banner "git merge from '$arg' in $dir"
+        git merge -m "merging from $arg"
+        ;;
+      *) err "invalid cmd: $cmd" ;;
+    esac
+  done
+}
+
+#=============================================================================
+# configuration
+#=============================================================================
+
+if [ $# -eq 0 ] ; then display_usage; fi
+
+while [ $# -ne 0 ] ; do
+  arg=$1; shift;
+  case $arg in
+    checkout) 
+      if [ $# -eq 0 ]; then err "checkout missing <branch>"; fi
+      run_cmd $arg $1
+      shift
+      ;;
+    new_branch) 
+      if [ $# -eq 0 ]; then err "new_branch missing <branch>"; fi
+      run_cmd $arg $1
+      shift
+      ;;
+    del_branch) 
+      if [ $# -eq 0 ]; then err "del_branch missing <branch>"; fi
+      run_cmd $arg $1
+      shift
+      ;;
+    status) run_cmd $arg "";;
+    push)   run_cmd $arg "";;
+    pull)   run_cmd $arg "";;
+    commit)
+      if [ $# -eq 0 ]; then err "commit missing <msg>"; fi
+      run_cmd $arg "$1"
+      shift
+      ;;
+    merge) 
+      if [ $# -eq 0 ]; then err "merge missing <other>"; fi
+      run_cmd $arg $1
+      shift
+      ;;
+    #------------------------------------------------------------------------
+    -h|-help) display_usage ;;
+    *) err "invalid option: $arg" ;;
+  esac
+done
+

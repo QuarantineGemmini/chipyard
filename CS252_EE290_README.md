@@ -10,11 +10,20 @@ You should run the build-toolchains.sh only if you
     ./script/build-toolchains.sh esp-tools
 
 -----------------------------------------------------------------------------
-How to install the riscv toolchain and spike simulator locally
+How to checkout the most recent dev branch for all relevant submodules
 =============================================================================
-You must have installed the new checkout already.
+You will need to switch to the dev branch in each submodule, and then do a 
+git pull. It should look something like:
 
-    source sourceme.sh
+    for dir in $CHIPYARD \
+               $CHIPYARD/generators/gemmini \
+               $CHIPYARD/generators/gemmini/software/gemmini-rocc-tests \
+               $CHIPYARD/toolchains/esp-tools/riscv-isa-sim; do
+      cd $dir
+      git checkout dev
+      git pull
+    done
+    cd $CHIPYARD
 
 -----------------------------------------------------------------------------
 How to set up a new shell environment
@@ -29,19 +38,13 @@ git submodules so any changes you make won't be to a detached head!
 -----------------------------------------------------------------------------
 How to build the software workloads
 =============================================================================
-This is how to build the workloads for the original software-tiler and the
-original gemmini isa:
+This is how to build the workloads for 
+  1) original software-tiler and the original gemmini isa:
+  2) the new fsm software-tiler and the original gemmini isa:
+  3) the new hardware tiler-fsm, and the new gemmini isa:
 
     buildworkload_gemmini -orig_tiler bare
-
-This is how to build the workloads for the new fsm software-tiler and the
-original gemmini isa:
-
     buildworkload_gemmini -fsm_tiler bare
-
-This is how to build the workloads for the new hardware tiler-fsm, and the
-new gemmini isa:
-
     buildworkload_gemmini -new_tiler bare
 
 Each of the above workloads will be placed in different output directories, so
