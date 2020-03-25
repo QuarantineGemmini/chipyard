@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-CY_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+CY_DIR="$(dirname "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")")"
 
 #=============================================================================
 # subroutines

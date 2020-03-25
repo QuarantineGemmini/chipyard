@@ -102,12 +102,13 @@ if [ "${EC2FASTINSTALL}" = true ] ; then
     git submodule deinit "${module}" || :
 
 else
-    "${MAKE}" --version | (
-        read -r makever
-        case ${makever} in
-        'GNU Make '[4-9]\.*|'GNU Make '[1-9][0-9]) ;;
-        *) false ;;
-        esac; ) || die 'obsolete make version; need GNU make 4.x or later'
+    # [ssteffl]: bug on bwrc machines
+    #"${MAKE}" --version | (
+    #    read -r makever
+    #    case ${makever} in
+    #    'GNU Make '[4-9]\.*|'GNU Make '[1-9][0-9]) ;;
+    #    *) false ;;
+    #    esac; ) || die 'obsolete make version; need GNU make 4.x or later'
 
     module_prepare riscv-gnu-toolchain qemu
     module_build riscv-gnu-toolchain --prefix="${RISCV}" --with-cmodel=medany
@@ -128,7 +129,8 @@ module_all riscv-tests --prefix="${RISCV}/riscv64-unknown-elf"
 
 SRCDIR="$(pwd)/toolchains" module_all libgloss --prefix="${RISCV}/riscv64-unknown-elf" --host=riscv64-unknown-elf
 
-SRCDIR="$(pwd)/toolchains" module_all qemu --prefix="${RISCV}" --target-list=riscv64-softmmu
+# [ssteffl]: bug on bwrc machines
+#SRCDIR="$(pwd)/toolchains" module_all qemu --prefix="${RISCV}" --target-list=riscv64-softmmu
 
 cd "$RDIR"
 
