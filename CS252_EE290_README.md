@@ -9,21 +9,9 @@ You should run the build-toolchains.sh only if you
     source sourceme.sh
     ./script/build-toolchains.sh esp-tools
 
------------------------------------------------------------------------------
-How to checkout the most recent dev branch for all relevant submodules
-=============================================================================
-You will need to switch to the dev branch in each submodule, and then do a 
-git pull. It should look something like:
+Then, to load the dev-branch of each gemmini-related submodule, enter
 
-    for dir in $CHIPYARD \
-               $CHIPYARD/generators/gemmini \
-               $CHIPYARD/generators/gemmini/software/gemmini-rocc-tests \
-               $CHIPYARD/toolchains/esp-tools/riscv-isa-sim; do
-      cd $dir
-      git checkout dev
-      git pull
-    done
-    cd $CHIPYARD
+    multi-git checkout dev
 
 -----------------------------------------------------------------------------
 How to set up a new shell environment
@@ -34,6 +22,30 @@ git submodules so any changes you make won't be to a detached head!
 
     cd chipyard
     source sourceme.sh
+
+-----------------------------------------------------------------------------
+How to use multi-git to manage multiple gemmini-related submodules
+=============================================================================
+The goal of `multi-git` is to make managing multiple related submodules seem
+like a single submdule. it makes sure you use the same branch and commit, merge
+push and pull from all relevant submodules in a close-to-atomic fashion.
+
+How to create a new branch locally and in the remote repo:
+
+    multi-git new_branch foo
+
+How to delete an existing branch locally an in the remote repo:
+
+    multi-git del_branch foo
+
+How to push/pull/status of all the gemmini-related submodules
+
+    multi-git push
+    multi-git pull
+    multi-git status
+
+For more commands, just type `multi-git -h`. `multi-git` is loaded into your
+PATH when you source the `sourceme.sh`.
 
 -----------------------------------------------------------------------------
 How to build the software workloads
