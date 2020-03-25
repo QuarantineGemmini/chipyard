@@ -1,27 +1,27 @@
-#########################################################################################
+#============================================================================
 # verilator makefile
-#########################################################################################
+#============================================================================
 
-#########################################################################################
+#============================================================================
 # general path variables
-#########################################################################################
+#============================================================================
 base_dir=$(abspath ../..)
 sim_dir=$(abspath .)
 patch_dir=$(sim_dir)/patch
 
-#########################################################################################
+#============================================================================
 # include shared variables
-#########################################################################################
+#============================================================================
 include $(base_dir)/variables.mk
 
-#########################################################################################
+#============================================================================
 # name of simulator (used to generate *.f arguments file)
-#########################################################################################
+#============================================================================
 sim_name = verilator
 
-#########################################################################################
-# vcs simulator types and rules
-#########################################################################################
+#============================================================================
+# verilator simulator types and rules
+#============================================================================
 sim_prefix = simulator
 sim = $(sim_dir)/$(sim_prefix)-$(MODEL_PACKAGE)-$(CONFIG)
 sim_debug = $(sim_dir)/$(sim_prefix)-$(MODEL_PACKAGE)-$(CONFIG)-debug
@@ -35,36 +35,57 @@ WAVEFORM_FLAG=-v$(sim_out_name).vcd
 default: $(sim)
 debug: $(sim_debug)
 
-#########################################################################################
+#============================================================================
 # import other necessary rules and variables
-#########################################################################################
+#============================================================================
 include $(base_dir)/common.mk
 include $(sim_dir)/verilator.mk
 
-#############################################################################
+#============================================================================
 # selectively enabling printfs
-#############################################################################
+#============================================================================
 ENABLE_PRINTF_PATTERN ?=
 sim_vsrcs_printf := $(sim_vsrcs:.v=.printf.v)
 
-#########################################################################################
-# verilator binary and flags
-#########################################################################################
-# NOTE: can't use -Wall, firrtl spits out 1000's of warnings that flag as erros
+#============================================================================
+# verilator/cxx binary and flags
+#============================================================================
+# can't use -Wall, firrtl spits out 1000's of warnings that flag as erros
 #VERILATOR := $(INSTALLED_VERILATOR) --cc --exe -Wall
 VERILATOR := $(INSTALLED_VERILATOR) --cc --exe
 
-RUNTIME_PROFILING_CFLAGS := 
-#RUNTIME_PROFILING_VFLAGS := 
-#RUNTIME_PROFILING_CFLAGS := -g -pg
-#RUNTIME_PROFILING_VFLAGS := --prof-cfuncs --prof-threads
-RUNTIME_PROFILING_VFLAGS := --prof-threads
+#----------------------------------------------------------------------------
+# profiling configs
+#----------------------------------------------------------------------------
+VL8_PROFILE ?= none
+RUNTIME_PROFILING_CFLAGS := $(if $(filter $(VL8_PROFILE),all),-g -pg,)
+RUNTIME_PROFILING_VFLAGS := $(if $(filter $(VL8_PROFILE),all),\
+															--prof-threads --prof-cfuncs,\
+															$(if $(filter $(VL8_PROFILE),threads),\
+																--prof-threads,))
 
-# 4 total speed settings: slow-mode, medium-mode, fast-mode, fast-mode+LTO
-#CMODE := -g
-#CMODE := -O1
-#CMODE := -O3
-#CMODE := -O3 -fbranch-probabilities
+VL8_THREADS ?= 1
+RUNTIME_THREADS := --threads $(VL8_THREADS) --threads-dpi all
+
+#----------------------------------------------------------------------------
+# verilation configuration/optimization
+#----------------------------------------------------------------------------
+VMODE :=	-O3 --x-assign fast --x-initial fast --noassert \
+					--output-split 10000 --output-split-cfuncs 10000
+
+VERILATOR_NONCC_OPTS := \
+	$(RUNTIME_PROFILING_VFLAGS) \
+	$(RUNTIME_THREADS) \
+	$(VMODE) \
+	--top-module $(VLOG_MODEL) \
+	+define+PRINTF_COND=\$$c\(\"verbose\",\"\&\&\"\,\"done_reset\"\) \
+	+define+STOP_COND=\$$c\(\"done_reset\"\) \
+	$(sim_vsrcs_printf) \
+	-f $(sim_common_files)
+
+#----------------------------------------------------------------------------
+# gcc configuration/optimization
+#----------------------------------------------------------------------------
 CMODE := -O3 -fbranch-probabilities -flto -march=native
 
 CXXFLAGS := $(CXXFLAGS) \
@@ -91,29 +112,8 @@ LDFLAGS	:=	$(LDFLAGS) \
 VERILATOR_CC_OPTS := -CFLAGS "$(CXXFLAGS)" -LDFLAGS "$(LDFLAGS)"
 
 #----------------------------------------------------------------------------
-# bwrc threads
-#RUNTIME_THREADS := 
-#RUNTIME_THREADS := --threads 4 --threads-dpi all
-RUNTIME_THREADS := --threads 16 --threads-dpi all
-#RUNTIME_THREADS := --threads 20 --threads-dpi all
-
-# slow mode, fast mode
-#VMODE := -O0 --assert 
-#VMODE := --assert --output-split 10000 --output-split-cfuncs 10000
-VMODE :=	-O3 --x-assign fast --x-initial fast --noassert \
-					--output-split 10000 --output-split-cfuncs 10000
-#VMODE :=	-O3 --x-assign fast --x-initial fast --noassert
-
-VERILATOR_NONCC_OPTS := \
-	$(RUNTIME_PROFILING_VFLAGS) \
-	$(RUNTIME_THREADS) \
-	$(VMODE) \
-	--top-module $(VLOG_MODEL) \
-	+define+PRINTF_COND=\$$c\(\"verbose\",\"\&\&\"\,\"done_reset\"\) \
-	+define+STOP_COND=\$$c\(\"done_reset\"\) \
-	$(sim_vsrcs_printf) \
-	-f $(sim_common_files)
-
+# full verilator+gcc opts
+#----------------------------------------------------------------------------
 VERILATOR_OPTS := $(VERILATOR_CC_OPTS) $(VERILATOR_NONCC_OPTS)
 
 #########################################################################################

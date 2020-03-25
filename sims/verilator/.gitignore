@@ -4,3 +4,4 @@
 !verilator.mk
 !patch
 !patch/*
+*.swp
