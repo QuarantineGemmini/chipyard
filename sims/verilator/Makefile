@@ -67,6 +67,10 @@ RUNTIME_PROFILING_VFLAGS := $(if $(filter $(VL8_PROFILE),all),\
 VL8_THREADS ?= 1
 RUNTIME_THREADS := --threads $(VL8_THREADS) --threads-dpi all
 
+VL8_FST_MODE ?= 0
+TRACING_OPTS := $(if $(filter $(VL8_FST_MODE),0),--trace,--trace-fst-thread)
+TRACING_CFLAGS := $(if $(filter $(VL8_FST_MODE),0),,-DCY_FST_TRACE)
+
 #----------------------------------------------------------------------------
 # verilation configuration/optimization
 #----------------------------------------------------------------------------
@@ -91,6 +95,7 @@ CMODE := -O3 -fbranch-probabilities -flto -march=native
 CXXFLAGS := $(CXXFLAGS) \
 						$(RUNTIME_PROFILING_CFLAGS) \
 						$(CMODE) \
+						$(TRACING_CFLAGS) \
 						-std=c++11 \
 						-I$(RISCV)/include \
 						-D__STDC_FORMAT_MACROS \
@@ -155,7 +160,7 @@ $(model_mk_debug): $(sim_vsrcs_printf) $(sim_common_files) $(INSTALLED_VERILATOR
 	# patched emulator.cc supports multithreaded HTIF
 	if [ -f $(build_dir)/emulator.cc ]; then rm $(build_dir)/emulator.cc; fi
 	cp $(patch_dir)/emulator.cc $(build_dir)/emulator.cc
-	$(VERILATOR) $(VERILATOR_OPTS) -o $(sim_debug) --trace \
+	$(VERILATOR) $(VERILATOR_OPTS) -o $(sim_debug) $(TRACING_OPTS) \
 		-Mdir $(model_dir_debug) -CFLAGS "-include $(model_header_debug)"
 	touch $@
 

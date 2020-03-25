@@ -1,11 +1,15 @@
 // See LICENSE.SiFive for license details.
 // See LICENSE.Berkeley for license details.
 
-#include "verilated.h"
 #if VM_TRACE
 #include <memory>
+#if CY_FST_TRACE
+#include "verilated_fst_c.h"
+#else
+#include "verilated.h"
 #include "verilated_vcd_c.h"
-#endif
+#endif // CY_FST_TRACE
+#endif // VM_TRACE
 #include <fesvr/dtm.h>
 #include <fesvr/tsi.h>
 #include "remote_bitbang.h"
@@ -125,6 +129,7 @@ int main(int argc, char** argv)
   // Port numbers are 16 bit unsigned integers. 
   uint16_t rbb_port = 0;
 #if VM_TRACE
+  const char* vcdfile_name = NULL; 
   FILE * vcdfile = NULL;
   uint64_t start = 0;
 #endif
@@ -165,6 +170,7 @@ int main(int argc, char** argv)
       case 'V': verbose = true;             break;
 #if VM_TRACE
       case 'v': {
+        vcdfile_name = optarg;
         vcdfile = strcmp(optarg, "-") == 0 ? stdout : fopen(optarg, "w");
         if (!vcdfile) {
           std::cerr << "Unable to open " << optarg << " for VCD write\n";
@@ -270,13 +276,21 @@ done_processing:
 
 #if VM_TRACE
   Verilated::traceEverOn(true); // Verilator must compute traced signals
+#if CY_FST_TRACE
+  std::unique_ptr<VerilatedFstC> tfp(new VerilatedFstC);
+  if (vcdfile_name) {
+    tile->trace(tfp.get(), 99);  // Trace 99 levels of hierarchy
+    tfp->open(vcdfile_name);
+  }
+#else
   std::unique_ptr<VerilatedVcdFILE> vcdfd(new VerilatedVcdFILE(vcdfile));
   std::unique_ptr<VerilatedVcdC> tfp(new VerilatedVcdC(vcdfd.get()));
   if (vcdfile) {
     tile->trace(tfp.get(), 99);  // Trace 99 levels of hierarchy
     tfp->open("");
   }
-#endif
+#endif // CY_FST_TRACE
+#endif // VM_TRACE
 
   // [ssteffl]: you must let the verilated threads create these, otherwise
   // the TLS "cur" pointer will be invalid when target switches to host
