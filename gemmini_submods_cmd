@@ -28,8 +28,6 @@ display_usage() {
   status                --> prints the status of each module
   pull                  --> pulls the remote branches
   push                  --> pushes the local branches
-  commit <msg>          --> creates a commit for each submodule with the 
-                            same message. 
   merge <other>         --> merges other local branch into current branch
 
   options
@@ -86,10 +84,6 @@ run_cmd() {
         git fetch --all
         git pull
         ;;
-      commit)
-        banner "git commit '$arg' in $dir"
-        git commit -am "$arg"
-        ;;
       merge)
         banner "git merge from '$arg' in $dir"
         git merge -m "merging from $arg"
@@ -126,11 +120,6 @@ while [ $# -ne 0 ] ; do
     status) run_cmd $arg "";;
     push)   run_cmd $arg "";;
     pull)   run_cmd $arg "";;
-    commit)
-      if [ $# -eq 0 ]; then err "commit missing <msg>"; fi
-      run_cmd $arg "$1"
-      shift
-      ;;
     merge) 
       if [ $# -eq 0 ]; then err "merge missing <other>"; fi
       run_cmd $arg $1
