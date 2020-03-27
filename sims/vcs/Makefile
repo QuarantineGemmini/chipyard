@@ -86,7 +86,7 @@ VCS_OPTS = -notice -line $(VCS_CC_OPTS) $(VCS_NONCC_OPTS)
 #############################################################################
 # see GNU Make static patterns
 $(sim_vsrcs_printf) : %.printf.v : %.v
-	$(base_dir)/scripts/sim/enable_printfs $< $@ "$(ENABLE_PRINTF_PATTERN)"
+	$(base_dir)/bin/enable_printfs $< $@ "$(ENABLE_PRINTF_PATTERN)"
 
 #############################################################################
 # vcs simulator rules
@@ -103,7 +103,9 @@ $(sim_debug) : $(sim_vsrcs_printf) $(sim_common_files)
 #############################################################################
 .PRECIOUS: $(output_dir)/%.vpd %.vpd
 $(output_dir)/%.vpd: $(output_dir)/% $(sim_debug)
-	(set -o pipefail && $(sim_debug) $(PERMISSIVE_ON) +max-cycles=$(timeout_cycles) $(SIM_FLAGS) $(VERBOSE_FLAGS) +vcdplusfile=$@ $(PERMISSIVE_OFF) $< 2> >(spike-dasm > $<.out) | tee $<.log)
+	(set -o pipefail && $(sim_debug) $(PERMISSIVE_ON) \
+		+max-cycles=$(timeout_cycles) $(SIM_FLAGS) $(VERBOSE_FLAGS) \
+		+vcdplusfile=$@ $(PERMISSIVE_OFF) $< 2> >(spike-dasm > $<.out) | tee $<.log)
 
 #############################################################################
 # general cleanup rule

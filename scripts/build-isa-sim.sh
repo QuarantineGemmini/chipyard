@@ -61,7 +61,7 @@ if [ -z "$RISCV" ] ; then
 fi
 
 #-----------------------------------------------------------------------------
-# install spike
+# install spike, fesvr, and pk
 #-----------------------------------------------------------------------------
 echo "Installing toolchain to $RISCV"
 cd "${CHIPYARD_DIR}"
@@ -70,10 +70,10 @@ SRCDIR="$(pwd)/toolchains/${TOOLCHAIN}"
 [ -d "${SRCDIR}" ] || die "unsupported toolchain: ${TOOLCHAIN}"
 source "${DIR}/build-util.sh"
 
-#module_all riscv-isa-sim --prefix="${RISCV}"
-#echo '==>  Installing libfesvr static library'
-#module_make riscv-isa-sim libfesvr.a
-#cp -p "${SRCDIR}/riscv-isa-sim/build/libfesvr.a" "${RISCV}/lib/"
+module_all riscv-isa-sim --prefix="${RISCV}"
+echo '==>  Installing libfesvr static library'
+module_make riscv-isa-sim libfesvr.a
+cp -p "${SRCDIR}/riscv-isa-sim/build/libfesvr.a" "${RISCV}/lib/"
 
 CC= CXX= module_all riscv-pk --prefix="${RISCV}" --host=riscv64-unknown-elf
 module_all riscv-tests --prefix="${RISCV}/riscv64-unknown-elf"

@@ -1,8 +1,4 @@
 #============================================================================
-# verilator makefile
-#============================================================================
-
-#============================================================================
 # general path variables
 #============================================================================
 base_dir=$(abspath ../..)
@@ -121,9 +117,9 @@ VERILATOR_CC_OPTS := -CFLAGS "$(CXXFLAGS)" -LDFLAGS "$(LDFLAGS)"
 #----------------------------------------------------------------------------
 VERILATOR_OPTS := $(VERILATOR_CC_OPTS) $(VERILATOR_NONCC_OPTS)
 
-#########################################################################################
+#============================================================================
 # verilator build paths and file names
-#########################################################################################
+#============================================================================
 model_dir = $(build_dir)/$(long_name)
 model_dir_debug = $(build_dir)/$(long_name).debug
 
@@ -133,16 +129,16 @@ model_header_debug = $(model_dir_debug)/V$(VLOG_MODEL).h
 model_mk = $(model_dir)/V$(VLOG_MODEL).mk
 model_mk_debug = $(model_dir_debug)/V$(VLOG_MODEL).mk
 
-#############################################################################
+#============================================================================
 # selectively enable verbose logging
-#############################################################################
+#============================================================================
 # see GNU Make static patterns
 $(sim_vsrcs_printf) : %.printf.v : %.v
-	$(base_dir)/scripts/sim/enable_printfs $< $@ "$(ENABLE_PRINTF_PATTERN)"
+	$(base_dir)/bin/enable_printfs $< $@ "$(ENABLE_PRINTF_PATTERN)"
 
-#########################################################################################
+#============================================================================
 # build makefile fragment that builds the verilator sim rules
-#########################################################################################
+#============================================================================
 
 $(model_mk): $(sim_vsrcs_printf) $(sim_common_files) $(INSTALLED_VERILATOR)
 	rm -rf $(model_dir)
@@ -164,27 +160,29 @@ $(model_mk_debug): $(sim_vsrcs_printf) $(sim_common_files) $(INSTALLED_VERILATOR
 		-Mdir $(model_dir_debug) -CFLAGS "-include $(model_header_debug)"
 	touch $@
 
-#########################################################################################
+#============================================================================
 # invoke make to make verilator sim rules
-#########################################################################################
+#============================================================================
 $(sim): $(model_mk)
 	$(MAKE) VM_PARALLEL_BUILDS=1 -C $(model_dir) -f V$(VLOG_MODEL).mk
 
 $(sim_debug): $(model_mk_debug)
 	$(MAKE) VM_PARALLEL_BUILDS=1 -C $(model_dir_debug) -f V$(VLOG_MODEL).mk
 
-#########################################################################################
+#============================================================================
 # create a verilator vpd rule
-#########################################################################################
+#============================================================================
 .PRECIOUS: $(output_dir)/%.vpd %.vcd
 $(output_dir)/%.vpd: $(output_dir)/% $(sim_debug)
 	rm -f $@.vcd && mkfifo $@.vcd
 	vcd2vpd $@.vcd $@ > /dev/null &
-	(set -o pipefail && $(sim_debug) $(PERMISSIVE_ON) +max-cycles=$(timeout_cycles) $(SIM_FLAGS) $(VERBOSE_FLAGS) -v$@.vcd $(PERMISSIVE_OFF) $< 2> >(spike-dasm > $<.out) | tee $<.log)
+	(set -o pipefail && $(sim_debug) $(PERMISSIVE_ON) \
+		+max-cycles=$(timeout_cycles) $(SIM_FLAGS) $(VERBOSE_FLAGS) \
+		-v$@.vcd $(PERMISSIVE_OFF) $< 2> >(spike-dasm > $<.out) | tee $<.log)
 
-#########################################################################################
+#============================================================================
 # general cleanup rule
-#########################################################################################
+#============================================================================
 .PHONY: clean
 clean:
 	rm -rf $(gen_dir) $(sim_prefix)-*

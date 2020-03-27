@@ -36,7 +36,8 @@ if __name__ == "__main__":
   trigger = re.compile(".*`ifdef PRINTF_COND.*")
   targets = []
   for idx in range(3, len(sys.argv)):
-    targets.append(re.compile(sys.argv[idx]))
+    if len(sys.argv[idx]) > 0:
+      targets.append(re.compile(sys.argv[idx]))
 
   # read input lines
   in_lines = []

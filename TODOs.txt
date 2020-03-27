@@ -1,0 +1,35 @@
+
+IMMEDIATE TODO
+----------------
+
+(DONE) 0) make sure all the scripts/build* scripts are not commented out (build-isa-sim)
+
+(DONE) 1) figure out why template runs in 20 seconds now, instead of 15
+        - must have been transient. back down to 16 seconds now
+
+(DONE) 2) finish refactoring workloads with new makefiles
+
+(DONE) 3) finish refactoring sim_scripts to use common format, and change logfile names
+
+(DONE) 4) finish profiling pk vs bare-metal for various workloads
+
+NEXT TODO
+----------------
+4) finish benchmarking verilator on different nodes/filesystems
+
+5) bring up vcs to the same level as verilator in terms of perf-tuning
+
+6) compare vcs kHz to verilator
+
+FINAL TODO
+----------------
+1) bring up a firesim env on a manager-node
+
+2) generate FPGA AGFI image of the new chisel i wrote and see if the lab3 
+   benchmarks pass!
+
+3) if its a bug-fix, report the patch to the owners.
+
+4) make the workflow slick for firesim
+
+

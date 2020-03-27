@@ -54,7 +54,8 @@ run_cmd() {
   for dir in "$CY_DIR" \
              "$CY_DIR/generators/gemmini" \
              "$CY_DIR/generators/gemmini/software/gemmini-rocc-tests" \
-             "$CY_DIR/toolchains/esp-tools/riscv-isa-sim"; do
+             "$CY_DIR/toolchains/esp-tools/riscv-isa-sim" \
+             "$CY_DIR/toolchains/esp-tools/riscv-pk"; do
     cd $dir
     case $cmd in
       checkout)
