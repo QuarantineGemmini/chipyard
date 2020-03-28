@@ -6,8 +6,8 @@
 set -e
 set -o pipefail
 
-RDIR=$(pwd)
-CHIPYARD_DIR="${CHIPYARD_DIR:-$(git rev-parse --show-toplevel)}"
+DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+CHIPYARD_DIR="$(dirname "$DIR")"
 
 usage() {
     echo "usage: ${0} [OPTIONS] [riscv-tools | esp-tools | ec2fast]"
