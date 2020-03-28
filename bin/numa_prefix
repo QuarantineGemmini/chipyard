@@ -9,7 +9,8 @@
 use strict;
 use warnings;
 
-if(system("which numactl >& /dev/null") == 0) {
+my $path = `which numactl`;
+if(length($path) > 0) {
   my ($head_line, @rest) = map {chomp; $_} `numactl -H`;
 
   if($head_line =~ /available: (\d+) nodes/) {
