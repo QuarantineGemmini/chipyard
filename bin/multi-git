@@ -55,7 +55,8 @@ run_cmd() {
              "$CY_DIR/generators/gemmini" \
              "$CY_DIR/generators/gemmini/software/gemmini-rocc-tests" \
              "$CY_DIR/toolchains/esp-tools/riscv-isa-sim" \
-             "$CY_DIR/toolchains/esp-tools/riscv-pk"; do
+             "$CY_DIR/toolchains/esp-tools/riscv-pk" \
+             "$CY_DIR/sims/firesim"; do
     cd $dir
     case $cmd in
       checkout)
