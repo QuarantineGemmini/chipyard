@@ -28,10 +28,12 @@ elif [[ "$CURHOST" =~ ^bwrc.*.eecs.berkeley.edu$ ]] ; then
   source $DIR/env.sh
 
   source /tools/flexlm/flexlm.sh
-  export VCS_HOME="/tools/synopsys/vcs/N-2017.12-SP1-1"
+  #export VCS_HOME="/tools/synopsys/vcs/N-2017.12-SP1-1"
+  export VCS_HOME="/tools/synopsys/vcs/P-2019.06-SP1/vcs/P-2019.06-SP1"
+  export DVE_HOME="/tools/synopsys/vcs/P-2019.06-SP1/gui/dve"
   export GENUS_HOME="/tools/cadence/GENUS/GENUS1813"
   export DC_HOME="/tools/synopsys/syn/P-2019.03-SP4"
-  export PATH="$PATH:$VCS_HOME/bin:$GENUS_HOME/bin:$DC_HOME/bin"
+  export PATH="$VCS_HOME/bin:$DVE_HOME/bin:$GENUS_HOME/bin:$DC_HOME/bin:$PATH"
 else
   #---------------------------------------------------------------------------
   # local-machine envs

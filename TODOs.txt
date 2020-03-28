@@ -5,7 +5,7 @@ IMMEDIATE TODO
 (DONE) 0) make sure all the scripts/build* scripts are not commented out (build-isa-sim)
 
 (DONE) 1) figure out why template runs in 20 seconds now, instead of 15
-        - must have been transient. back down to 16 seconds now
+        - must have been transient. back down to at 16 seconds now
 
 (DONE) 2) finish refactoring workloads with new makefiles
 

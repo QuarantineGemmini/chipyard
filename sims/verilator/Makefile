@@ -22,11 +22,6 @@ sim_prefix = simulator
 sim = $(sim_dir)/$(sim_prefix)-$(MODEL_PACKAGE)-$(CONFIG)
 sim_debug = $(sim_dir)/$(sim_prefix)-$(MODEL_PACKAGE)-$(CONFIG)-debug
 
-PERMISSIVE_ON=
-PERMISSIVE_OFF=
-
-WAVEFORM_FLAG=-v$(sim_out_name).vcd
-
 .PHONY: default debug
 default: $(sim)
 debug: $(sim_debug)
@@ -51,7 +46,7 @@ sim_vsrcs_printf := $(sim_vsrcs:.v=.printf.v)
 VERILATOR := $(INSTALLED_VERILATOR) --cc --exe
 
 #----------------------------------------------------------------------------
-# profiling configs
+# user configs
 #----------------------------------------------------------------------------
 VL8_PROFILE ?= none
 RUNTIME_PROFILING_CFLAGS := $(if $(filter $(VL8_PROFILE),all),-g -pg,)
@@ -170,19 +165,8 @@ $(sim_debug): $(model_mk_debug)
 	$(MAKE) VM_PARALLEL_BUILDS=1 -C $(model_dir_debug) -f V$(VLOG_MODEL).mk
 
 #============================================================================
-# create a verilator vpd rule
-#============================================================================
-.PRECIOUS: $(output_dir)/%.vpd %.vcd
-$(output_dir)/%.vpd: $(output_dir)/% $(sim_debug)
-	rm -f $@.vcd && mkfifo $@.vcd
-	vcd2vpd $@.vcd $@ > /dev/null &
-	(set -o pipefail && $(sim_debug) $(PERMISSIVE_ON) \
-		+max-cycles=$(timeout_cycles) $(SIM_FLAGS) $(VERBOSE_FLAGS) \
-		-v$@.vcd $(PERMISSIVE_OFF) $< 2> >(spike-dasm > $<.out) | tee $<.log)
-
-#============================================================================
 # general cleanup rule
 #============================================================================
 .PHONY: clean
 clean:
-	rm -rf $(gen_dir) $(sim_prefix)-*
+	rm -rf $(sim_prefix)-*

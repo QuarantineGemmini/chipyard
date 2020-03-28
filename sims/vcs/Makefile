@@ -1,26 +1,22 @@
-#############################################################################
-# vcs makefile
-#############################################################################
-
-#############################################################################
+#============================================================================
 # general path variables
-#############################################################################
+#============================================================================
 base_dir=$(abspath ../..)
 sim_dir=$(abspath .)
 
-#############################################################################
+#============================================================================
 # include shared variables
-#############################################################################
+#============================================================================
 include $(base_dir)/variables.mk
 
-#############################################################################
+#============================================================================
 # name of simulator (used to generate *.f arguments file)
-#############################################################################
+#============================================================================
 sim_name = vcs
 
-#############################################################################
+#============================================================================
 # vcs simulator types and rules
-#############################################################################
+#============================================================================
 sim_prefix = simv
 sim = $(sim_dir)/$(sim_prefix)-$(MODEL_PACKAGE)-$(CONFIG)
 sim_debug = $(sim_dir)/$(sim_prefix)-$(MODEL_PACKAGE)-$(CONFIG)-debug
@@ -34,82 +30,123 @@ WAVEFORM_FLAG=+vcdplusfile=$(sim_out_name).vpd
 default: $(sim)
 debug: $(sim_debug)
 
-#############################################################################
+#============================================================================
 # import other necessary rules and variables
-#############################################################################
+#============================================================================
 include $(base_dir)/common.mk
 
-#############################################################################
+#============================================================================
 # selectively enabling printfs
-#############################################################################
+#============================================================================
 ENABLE_PRINTF_PATTERN ?=
 sim_vsrcs_printf := $(sim_vsrcs:.v=.printf.v)
 
-#############################################################################
-# vcs binary and arguments
-#############################################################################
-VCS = vcs -full64
+#============================================================================
+# vcs/cxx binary and arguments
+#============================================================================
+VCS := vcs -full64
 
-VCS_CC_OPTS = \
-	-CC "-I$(VCS_HOME)/include" \
-	-CC "-I$(RISCV)/include" \
-	-CC "-std=c++11" \
-	$(RISCV)/lib/libfesvr.a
+#----------------------------------------------------------------------------
+# user configs
+#----------------------------------------------------------------------------
+VCS_THREADS ?= 1
 
-VCS_NONCC_OPTS = \
-	+lint=all,noVCDE,noONGS,noUI \
-	-error=PCWM-L \
+VCS_PROFILE ?= 0
+RUNTIME_PROFILING_VMODE := $(if $(filter $(VCS_PROFILE),1),-design_stats,)
+RUNTIME_PROFILING_CMODE := $(if $(filter $(VCS_PROFILE),1),-g -pg,)
+
+#----------------------------------------------------------------------------
+# verilog translation options
+#----------------------------------------------------------------------------
+VMODE :=  -j$(VCS_THREADS) -hsopt=j$(VCS_THREADS) \
+					-O4 +rad -fgp \
+					-sverilog \
+					+vcs+lic+wait \
+					+vc+list \
+					+lint=all,noVCDE,noONGS,noUI \
+					-error=PCWM-L \
+					-q \
+
+# this outputs DProf results. (if EPC<10 is really high, parallelism doesn't help)
+# - EPC is events per cycle
+# simv -Xdprof=timeline
+
+# simulator options
+# simv -vpd_file
+# simv +vcs+dumparrays
+# simv +vcs+dumpon+<t>+<ht>
+
+VCS_NONCC_OPTS := \
+	$(RUNTIME_PROFILING_VMODE) \
+	$(VMODE) \
 	-timescale=1ns/10ps \
-	-quiet \
-	-q \
-	+rad \
-	+v2k \
-	+vcs+lic+wait \
-	+vc+list \
 	-f $(sim_common_files) \
-	-sverilog \
 	+incdir+$(build_dir) \
 	+define+CLOCK_PERIOD=1.0 \
-	$(sim_vsrcs_printf) \
 	+define+PRINTF_COND=$(TB).printf_cond \
 	+define+STOP_COND=!$(TB).reset \
 	+define+RANDOMIZE_MEM_INIT \
 	+define+RANDOMIZE_REG_INIT \
 	+define+RANDOMIZE_GARBAGE_ASSIGN \
 	+define+RANDOMIZE_INVALID_ASSIGN \
-	+libext+.v
+	+libext+.v \
+	$(sim_vsrcs_printf) \
 
-VCS_OPTS = -notice -line $(VCS_CC_OPTS) $(VCS_NONCC_OPTS)
+#----------------------------------------------------------------------------
+# gcc compilation options
+#----------------------------------------------------------------------------
+CMODE := -O3 -fbranch-probabilities -flto -march=native
 
-#############################################################################
+CXXFLAGS := $(CXXFLAGS) \
+						$(RUNTIME_PROFILING_CMODE) \
+						$(CMODE) \
+						-std=c++11 \
+						-I$(VCS_HOME)/include \
+						-I$(RISCV)/include
+
+LDFLAGS	:=	$(LDFLAGS) \
+						$(RUNTIME_PROFILING_CMODE) \
+						$(CMODE) \
+
+EXPLICIT_LIBS := $(RISCV)/lib/libfesvr.a
+
+VCS_CC_OPTS := -CFLAGS "$(CXXFLAGS)" -LDFLAGS "$(LDFLAGS)" $(EXPLICIT_LIBS)
+
+#----------------------------------------------------------------------------
+# full vcs+gcc opts
+#----------------------------------------------------------------------------
+VCS_OPTS = $(VCS_CC_OPTS) $(VCS_NONCC_OPTS)
+
+#============================================================================
 # selectively enable verbose logging
-#############################################################################
+#============================================================================
 # see GNU Make static patterns
 $(sim_vsrcs_printf) : %.printf.v : %.v
 	$(base_dir)/bin/enable_printfs $< $@ "$(ENABLE_PRINTF_PATTERN)"
 
-#############################################################################
+#============================================================================
 # vcs simulator rules
-#############################################################################
+#============================================================================
 $(sim): $(sim_vsrcs_printf) $(sim_common_files)
-	rm -rf csrc && $(VCS) $(VCS_OPTS) -o $@ -debug_pp
+	rm -rf csrc
+	$(VCS) $(VCS_OPTS) -o $@
 
 $(sim_debug) : $(sim_vsrcs_printf) $(sim_common_files)
-	rm -rf csrc && $(VCS) $(VCS_OPTS) -o $@ +define+DEBUG \
-		-debug_pp -debug_access+all
+	rm -rf csrc
+	$(VCS) $(VCS_OPTS) -o $@ +define+DEBUG +memcbk -debug_access
 
 #############################################################################
 # create a vcs vpd rule
 #############################################################################
-.PRECIOUS: $(output_dir)/%.vpd %.vpd
-$(output_dir)/%.vpd: $(output_dir)/% $(sim_debug)
-	(set -o pipefail && $(sim_debug) $(PERMISSIVE_ON) \
-		+max-cycles=$(timeout_cycles) $(SIM_FLAGS) $(VERBOSE_FLAGS) \
-		+vcdplusfile=$@ $(PERMISSIVE_OFF) $< 2> >(spike-dasm > $<.out) | tee $<.log)
+#.PRECIOUS: $(output_dir)/%.vpd %.vpd
+#$(output_dir)/%.vpd: $(output_dir)/% $(sim_debug)
+#	(set -o pipefail && $(sim_debug) $(PERMISSIVE_ON) \
+#		+max-cycles=$(timeout_cycles) $(SIM_FLAGS) $(VERBOSE_FLAGS) \
+#		+vcdplusfile=$@ $(PERMISSIVE_OFF) $< 2> >(spike-dasm > $<.out) | tee $<.log)
 
-#############################################################################
+#============================================================================
 # general cleanup rule
-#############################################################################
+#============================================================================
 .PHONY: clean
 clean:
-	rm -rf $(gen_dir) csrc $(sim_prefix)-* ucli.key vc_hdrs.h
+	rm -rf csrc $(sim_prefix)-* ucli.key vc_hdrs.h
