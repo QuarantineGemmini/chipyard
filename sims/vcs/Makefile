@@ -135,15 +135,6 @@ $(sim_debug) : $(sim_vsrcs_printf) $(sim_common_files)
 	rm -rf csrc
 	$(VCS) $(VCS_OPTS) -o $@ +define+DEBUG +memcbk -debug_access
 
-#############################################################################
-# create a vcs vpd rule
-#############################################################################
-#.PRECIOUS: $(output_dir)/%.vpd %.vpd
-#$(output_dir)/%.vpd: $(output_dir)/% $(sim_debug)
-#	(set -o pipefail && $(sim_debug) $(PERMISSIVE_ON) \
-#		+max-cycles=$(timeout_cycles) $(SIM_FLAGS) $(VERBOSE_FLAGS) \
-#		+vcdplusfile=$@ $(PERMISSIVE_OFF) $< 2> >(spike-dasm > $<.out) | tee $<.log)
-
 #============================================================================
 # general cleanup rule
 #============================================================================
