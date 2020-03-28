@@ -63,7 +63,8 @@
 	path = toolchains/esp-tools/riscv-isa-sim
   #url = https://github.com/ucb-bar/esp-isa-sim.git
   #url = https://github.com/dan-fritchman/esp-isa-sim.git
-  url = git@github.com:ssteffl/ee290hw4ml-lab3-esp-isa-sim.git
+  #url = git@github.com:ssteffl/ee290hw4ml-lab3-esp-isa-sim.git
+  url = git@github.com:QuarantineGemmini/esp-isa-sim.git
 [submodule "toolchains/esp-tools/riscv-pk"]
 	path = toolchains/esp-tools/riscv-pk
   #url = https://github.com/riscv/riscv-pk.git
@@ -116,4 +117,5 @@
 [submodule "generators/gemmini"]
 	path = generators/gemmini
   #url = https://github.com/ucb-bar/gemmini
-  url = git@github.com:ssteffl/ee290hw4ml-lab3.git
+  #url = git@github.com:ssteffl/ee290hw4ml-lab3.git
+  url = git@github.com:QuarantineGemmini/gemmini.git
