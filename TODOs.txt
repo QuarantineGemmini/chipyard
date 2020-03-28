@@ -15,11 +15,11 @@ IMMEDIATE TODO
 
 NEXT TODO
 ----------------
-4) finish benchmarking verilator on different nodes/filesystems
+(SKIP) 4) finish benchmarking verilator on different nodes/filesystems
 
-5) bring up vcs to the same level as verilator in terms of perf-tuning
+(DONE) 5) bring up vcs to the same level as verilator in terms of perf-tuning
 
-6) compare vcs kHz to verilator
+(DONE) 6) compare vcs kHz to verilator
 
 FINAL TODO
 ----------------
