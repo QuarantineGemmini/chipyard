@@ -7,9 +7,6 @@ CURHOST="$(hostname -f | awk '{print tolower($0)}')"
 export PATH="$PATH:$DIR/bin"
 export NUMACTL="$(numa_prefix)"
 
-# pull the multi-git into path
-export PATH="$PATH:$DIR"
-
 if [[ "$CURHOST" =~ ^eda-.*.eecs.berkeley.edu$ ]] ; then
   #---------------------------------------------------------------------------
   # cory eda-* envs
@@ -34,11 +31,25 @@ elif [[ "$CURHOST" =~ ^bwrc.*.eecs.berkeley.edu$ ]] ; then
   export GENUS_HOME="/tools/cadence/GENUS/GENUS1813"
   export DC_HOME="/tools/synopsys/syn/P-2019.03-SP4"
   export PATH="$VCS_HOME/bin:$DVE_HOME/bin:$GENUS_HOME/bin:$DC_HOME/bin:$PATH"
+elif [[ "$CURHOST" =~ ^.*\.us-.*-[0-9]+\.compute\.internal$ ]] ; then
+  #---------------------------------------------------------------------------
+  # firesim-manager
+  #---------------------------------------------------------------------------
+  # NOTE! install numactl and devtoolset-8 manually!
+  source $DIR/env.sh
 else
   #---------------------------------------------------------------------------
   # local-machine envs
   #---------------------------------------------------------------------------
   source $DIR/env.sh
+fi
+
+#source firesim if its available
+if [ -f "$DIR/sims/firesim/sourceme-f1-manager.sh" ]; then
+  cd "$DIR/sims/firesim"
+  set +u
+  source sourceme-f1-manager.sh
+  cd "$DIR"
 fi
 
 # add convenience gemmini scripts
