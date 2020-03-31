@@ -67,15 +67,6 @@ VMODE :=  -j$(VCS_THREADS) -hsopt=j$(VCS_THREADS) \
 					-error=PCWM-L \
 					-q \
 
-# this outputs DProf results. (if EPC<10 is really high, parallelism doesn't help)
-# - EPC is events per cycle
-# simv -Xdprof=timeline
-
-# simulator options
-# simv -vpd_file
-# simv +vcs+dumparrays
-# simv +vcs+dumpon+<t>+<ht>
-
 VCS_NONCC_OPTS := \
 	$(RUNTIME_PROFILING_VMODE) \
 	$(VMODE) \
@@ -97,20 +88,26 @@ VCS_NONCC_OPTS := \
 #----------------------------------------------------------------------------
 CMODE := -O3 -fbranch-probabilities -flto -march=native
 
-CXXFLAGS := $(CXXFLAGS) \
-						$(RUNTIME_PROFILING_CMODE) \
-						$(CMODE) \
-						-std=c++11 \
-						-I$(VCS_HOME)/include \
-						-I$(RISCV)/include
+CXXFLAGS ?=
+VCS_CXXFLAGS := \
+	$(CXXFLAGS) \
+	$(RUNTIME_PROFILING_CMODE) \
+	$(CMODE) \
+	-std=c++11 \
+	-I$(VCS_HOME)/include \
+	-I$(RISCV)/include
 
-LDFLAGS	:=	$(LDFLAGS) \
-						$(RUNTIME_PROFILING_CMODE) \
-						$(CMODE) \
+LDFLAGS ?=
+VCS_LDFLAGS :=	\
+	$(LDFLAGS) \
+	$(RUNTIME_PROFILING_CMODE) \
+	$(CMODE)
 
 EXPLICIT_LIBS := $(RISCV)/lib/libfesvr.a
 
-VCS_CC_OPTS := -CFLAGS "$(CXXFLAGS)" -LDFLAGS "$(LDFLAGS)" $(EXPLICIT_LIBS)
+VCS_CC_OPTS := -CFLAGS "$(VCS_CXXFLAGS)" \
+							 -LDFLAGS "$(VCS_LDFLAGS)" \
+							 $(EXPLICIT_LIBS)
 
 #----------------------------------------------------------------------------
 # full vcs+gcc opts

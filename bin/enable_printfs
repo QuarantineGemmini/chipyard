@@ -70,5 +70,5 @@ if __name__ == "__main__":
   with open(out_file, "w") as f:
     f.writelines(out_lines)
 
-  print(f"INFO: enabled {enables} printfs in {out_file}")
+  print("INFO: enabled {} printfs in {}".format(enables, out_file))
 
