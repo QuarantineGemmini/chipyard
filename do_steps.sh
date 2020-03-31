@@ -17,18 +17,16 @@ GEMMINI_SW_DIR="${CYDIR}/generators/gemmini/software"
 DO_BUILD_AGFI=0
 DO_BUILD_WORKLOADS=1
 DO_MANAGER_INIT=0
-DO_LAUNCH_RUNFARM=1
-DO_SEND_CONFIGS_TO_RUNFARM=1
-DO_RUN_WORKLOAD=1
+DO_LAUNCH_RUNFARM=0
+DO_SEND_CONFIGS_TO_RUNFARM=0
+DO_RUN_WORKLOAD=0
 
 BUILD_CONFIG="${GEMMINI_SW_DIR}/firesim-configs/config_build.ini"
 RECIPES_CONFIG="${GEMMINI_SW_DIR}/firesim-configs/config_build_recipes.ini"
 HWDB_CONFIG="${GEMMINI_SW_DIR}/firesim-configs/config_hwdb.ini"
 RUNTIME_CONFIG="${GEMMINI_SW_DIR}/firesim-configs/config_runtime_ee290.ini"
 
-WORKLOAD=fsm_tiler
-
-#  :%!sed 's/\x1b\[[0-9;]*m//g; s/\x1b\[K//g'
+WORKLOAD=orig_tiler
 
 #===========================================================================
 # helpers

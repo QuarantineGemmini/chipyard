@@ -85,29 +85,33 @@ VERILATOR_NONCC_OPTS := \
 #CMODE := -O3 -fbranch-probabilities -flto -march=native
 CMODE := -O3 -fbranch-probabilities -march=native
 
-CXXFLAGS := $(CXXFLAGS) \
-						$(RUNTIME_PROFILING_CFLAGS) \
-						$(CMODE) \
-						$(TRACING_CFLAGS) \
-						-std=c++11 \
-						-I$(RISCV)/include \
-						-D__STDC_FORMAT_MACROS \
-						-DTEST_HARNESS=V$(VLOG_MODEL) \
-						-DVERILATOR \
-						-I$(build_dir) \
-						-include $(build_dir)/$(long_name).plusArgs \
-						-include $(build_dir)/verilator.h
+CXXFLAGS ?=
+VL8_CXXFLAGS := \
+	$(CXXFLAGS) \
+	$(RUNTIME_PROFILING_CFLAGS) \
+	$(CMODE) \
+	$(TRACING_CFLAGS) \
+	-std=c++11 \
+	-I$(RISCV)/include \
+	-D__STDC_FORMAT_MACROS \
+	-DTEST_HARNESS=V$(VLOG_MODEL) \
+	-DVERILATOR \
+	-I$(build_dir) \
+	-include $(build_dir)/$(long_name).plusArgs \
+	-include $(build_dir)/verilator.h
 
-LDFLAGS	:=	$(LDFLAGS) \
-						$(RUNTIME_PROFILING_CFLAGS) \
-						$(CMODE) \
-						-L$(RISCV)/lib \
-						-Wl,-rpath,$(RISCV)/lib \
-						-L$(sim_dir) \
-						-lfesvr \
-						-lpthread
+LDFLAGS ?=
+VL8_LDFLAGS :=	\
+	$(LDFLAGS) \
+	$(RUNTIME_PROFILING_CFLAGS) \
+	$(CMODE) \
+	-L$(RISCV)/lib \
+	-Wl,-rpath,$(RISCV)/lib \
+	-L$(sim_dir) \
+	-lfesvr \
+	-lpthread
 
-VERILATOR_CC_OPTS := -CFLAGS "$(CXXFLAGS)" -LDFLAGS "$(LDFLAGS)"
+VERILATOR_CC_OPTS := -CFLAGS "$(VL8_CXXFLAGS)" -LDFLAGS "$(VL8_LDFLAGS)"
 
 #----------------------------------------------------------------------------
 # full verilator+gcc opts
