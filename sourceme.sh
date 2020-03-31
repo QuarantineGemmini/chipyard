@@ -13,6 +13,7 @@ CHIPYARD_SOURCEME_SOURCED=1
 # add convenience repo and gemmini scripts
 export PATH="$PATH:$DIR/bin"
 export PATH="$PATH:$DIR/generators/gemmini/software/sim_scripts"
+export PATH="$(echo $PATH | sed 's/:\+/:/g')"
 
 # control which sockets and cores are used for multithreading on each host
 export NUMACTL="$(numa_prefix)"
