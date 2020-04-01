@@ -61,7 +61,7 @@
   url = git@github.com:QuarantineGemmini/esp-isa-sim.git
 [submodule "toolchains/esp-tools/riscv-pk"]
 	path = toolchains/esp-tools/riscv-pk
-  url = git@github.com:QuarantineGemmini/riscv-pk.git
+  url = git@github.com:QuarantineGemmini/esp-riscv-pk.git
 [submodule "toolchains/esp-tools/riscv-tests"]
 	path = toolchains/esp-tools/riscv-tests
 	url = https://github.com/ucb-bar/esp-tests.git
