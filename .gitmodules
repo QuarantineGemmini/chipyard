@@ -27,7 +27,6 @@
 	url = https://github.com/ucb-bar/hwacha.git
 [submodule "sims/firesim"]
 	path = sims/firesim
-  #url = https://github.com/firesim/firesim.git
   url = git@github.com:QuarantineGemmini/firesim.git
 [submodule "generators/icenet"]
 	path = generators/icenet
@@ -59,14 +58,9 @@
 	url = https://github.com/ucb-bar/esp-gnu-toolchain.git
 [submodule "toolchains/esp-tools/riscv-isa-sim"]
 	path = toolchains/esp-tools/riscv-isa-sim
-  #url = https://github.com/ucb-bar/esp-isa-sim.git
-  #url = https://github.com/dan-fritchman/esp-isa-sim.git
-  #url = git@github.com:ssteffl/ee290hw4ml-lab3-esp-isa-sim.git
   url = git@github.com:QuarantineGemmini/esp-isa-sim.git
 [submodule "toolchains/esp-tools/riscv-pk"]
 	path = toolchains/esp-tools/riscv-pk
-  #url = https://github.com/riscv/riscv-pk.git
-  #url = git@github.com:ssteffl/ee290hw4ml-lab3-riscv-pk.git
   url = git@github.com:QuarantineGemmini/esp-riscv-pk.git
 [submodule "toolchains/esp-tools/riscv-tests"]
 	path = toolchains/esp-tools/riscv-tests
@@ -115,6 +109,4 @@
 	url = https://github.com/ucb-bar/coremark-workload.git
 [submodule "generators/gemmini"]
 	path = generators/gemmini
-  #url = https://github.com/ucb-bar/gemmini
-  #url = git@github.com:ssteffl/ee290hw4ml-lab3.git
   url = git@github.com:QuarantineGemmini/gemmini.git
