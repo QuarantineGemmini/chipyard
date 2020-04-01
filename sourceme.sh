@@ -39,7 +39,6 @@ if [[ "$CURHOST" =~ ^eda-.*.eecs.berkeley.edu$ ]] ; then
   # cory eda-* envs
   #-----------------
   __trysource "/home/ff/ee290-2/chipyard-env.sh"
-  __trysource "$DIR/sims/firesim/sourceme-f1-manager.sh"
 
   # for viewing rtl schematic in dc_shell
   export PATH="$PATH:/share/instsww/synopsys/J-2014.09-SP3/bin"
@@ -49,7 +48,6 @@ elif [[ "$CURHOST" =~ ^bwrc.*.eecs.berkeley.edu$ ]] ; then
   # bwrc envs
   #-----------------
   __trysource "$DIR/env.sh"
-  __trysource "$DIR/sims/firesim/sourceme-f1-manager.sh"
 
   source /tools/flexlm/flexlm.sh
   export VCS_HOME="/tools/synopsys/vcs/P-2019.06-SP1/vcs/P-2019.06-SP1"
@@ -71,6 +69,5 @@ else
   # local-machine envs
   #-----------------
   __trysource "$DIR/env.sh"
-  __trysource "$DIR/sims/firesim/sourceme-f1-manager.sh"
 fi
 
