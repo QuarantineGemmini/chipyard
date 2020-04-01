@@ -70,21 +70,16 @@ SRCDIR="$(pwd)/toolchains/${TOOLCHAIN}"
 [ -d "${SRCDIR}" ] || die "unsupported toolchain: ${TOOLCHAIN}"
 source "${DIR}/build-util.sh"
 
+echo '==>  Installing spike and libfesvr'
 module_all riscv-isa-sim --prefix="${RISCV}"
-echo '==>  Installing libfesvr static library'
-module_make riscv-isa-sim libfesvr.a
-cp -p "${SRCDIR}/riscv-isa-sim/build/libfesvr.a" "${RISCV}/lib/"
-
-CC= CXX= module_all riscv-pk --prefix="${RISCV}" --host=riscv64-unknown-elf
-module_all riscv-tests --prefix="${RISCV}/riscv64-unknown-elf"
 
 # create specific env.sh
-{
-    echo "export CHIPYARD_TOOLCHAIN_SOURCED=1"
-    echo "export RISCV=$(printf '%q' "$RISCV")"
-    echo "export PATH=\${RISCV}/bin:\${PATH}"
-    echo "export LD_LIBRARY_PATH=\${RISCV}/lib\${LD_LIBRARY_PATH:+":\${LD_LIBRARY_PATH}"}"
-} > env-$TOOLCHAIN.sh
+cat > env-$TOOLCHAIN.sh <<EOF
+export CHIPYARD_TOOLCHAIN_SOURCED=1
+export RISCV=$(printf '%q' "$RISCV")
+export PATH=\${RISCV}/bin:\${PATH}
+export LD_LIBRARY_PATH=\${RISCV}/lib\${LD_LIBRARY_PATH:+":\${LD_LIBRARY_PATH}"}
+EOF
 
 # create general env.sh
 ln -sf env-$TOOLCHAIN.sh env.sh

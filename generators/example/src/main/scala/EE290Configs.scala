@@ -55,3 +55,16 @@ class GemminiEE290Lab3SmallSPRocketConfig extends Config(
   new gemmini.GemminiEE290Lab3SmallSPConfig ++                        // use Gemmini systolic array GEMM accelerator
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++
   new freechips.rocketchip.system.BaseConfig)
+
+//class GemminiRocketConfig extends Config(
+//  new WithTSI ++
+//  new WithNoGPIO ++
+//  new WithBootROM ++
+//  new WithUART ++
+//  new freechips.rocketchip.subsystem.WithNoMMIOPort ++
+//  new freechips.rocketchip.subsystem.WithNoSlavePort ++
+//  new freechips.rocketchip.subsystem.WithInclusiveCache ++
+//  new gemmini.GemminiEE290Lab3Config ++                        // use Gemmini systolic array GEMM accelerator
+//  new freechips.rocketchip.subsystem.WithNBigCores(1) ++
+//  new freechips.rocketchip.system.BaseConfig)
+

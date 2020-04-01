@@ -51,11 +51,15 @@ run_cmd() {
   local cmd=$1
   local arg=$2
 
+  # TODO: read these from a config file for each branch instead of hard-code!
   for dir in "$CY_DIR" \
              "$CY_DIR/generators/gemmini" \
              "$CY_DIR/generators/gemmini/software/gemmini-rocc-tests" \
-             "$CY_DIR/toolchains/esp-tools/riscv-isa-sim" \
-             "$CY_DIR/toolchains/esp-tools/riscv-pk"; do
+             "$CY_DIR/toolchains/esp-tools/riscv-isa-sim"; do
+             #"$CY_DIR/toolchains/esp-tools/riscv-pk" \
+             #"$CY_DIR/sims/firesim" \
+             #"$CY_DIR/sims/firesim/sw/firesim-software" \
+             #"$CY_DIR/sims/firesim/sw/firesim-software/riscv-linux"; do
     cd $dir
     case $cmd in
       checkout)

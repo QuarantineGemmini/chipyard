@@ -27,7 +27,7 @@
 	url = https://github.com/ucb-bar/hwacha.git
 [submodule "sims/firesim"]
 	path = sims/firesim
-	url = https://github.com/firesim/firesim.git
+  url = git@github.com:QuarantineGemmini/firesim.git
 [submodule "generators/icenet"]
 	path = generators/icenet
 	url = https://github.com/firesim/icenet.git
@@ -109,4 +109,4 @@
 	url = https://github.com/ucb-bar/coremark-workload.git
 [submodule "generators/gemmini"]
 	path = generators/gemmini
-  url = git@github.com:QuarantineGemmini/gemmini
+  url = git@github.com:QuarantineGemmini/gemmini.git

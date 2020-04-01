@@ -6,8 +6,8 @@
 set -e
 set -o pipefail
 
-RDIR=$(pwd)
-CHIPYARD_DIR="${CHIPYARD_DIR:-$(git rev-parse --show-toplevel)}"
+DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+CHIPYARD_DIR="$(dirname "$DIR")"
 
 usage() {
     echo "usage: ${0} [OPTIONS] [riscv-tools | esp-tools | ec2fast]"
@@ -130,9 +130,9 @@ module_all riscv-tests --prefix="${RISCV}/riscv64-unknown-elf"
 SRCDIR="$(pwd)/toolchains" module_all libgloss --prefix="${RISCV}/riscv64-unknown-elf" --host=riscv64-unknown-elf
 
 # [ssteffl]: bug on bwrc machines
-#SRCDIR="$(pwd)/toolchains" module_all qemu --prefix="${RISCV}" --target-list=riscv64-softmmu
+SRCDIR="$(pwd)/toolchains" module_all qemu --prefix="${RISCV}" --target-list=riscv64-softmmu
 
-cd "$RDIR"
+cd "${CHIPYARD_DIR}"
 
 # create specific env.sh
 {
