@@ -1,0 +1,200 @@
+[*]
+[*] GTKWave Analyzer v3.3.102 (w)1999-2019 BSI
+[*] Tue Apr  7 22:52:59 2020
+[*]
+[dumpfile] "/k/work/cy-gemmini/sims/verilator/logs/2020-04-07_14-56-57__baremetal__hw_tiler__hw_g2__template-baremetal.vcd"
+[dumpfile_mtime] "Tue Apr  7 21:57:04 2020"
+[dumpfile_size] 169019209
+[savefile] "/k/work/cy-gemmini/sims/verilator/gtkwave/gemmini-g2.gtkw"
+[timestart] 63937
+[size] 1916 1161
+[pos] -1 -1
+*-4.000000 63961 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.TestHarness.
+[treeopen] TOP.TestHarness.top.
+[treeopen] TOP.TestHarness.top.tile.
+[treeopen] TOP.TestHarness.top.tile.v.
+[treeopen] TOP.TestHarness.top.tile.v.exec.
+[treeopen] TOP.TestHarness.top.tile.v.exec.mesh.mesh.mesh_0_0.
+[treeopen] TOP.TestHarness.top.tile.v.tiler.
+[treeopen] TOP.TestHarness.top.tile.v.tiler.fsm.
+[sst_width] 369
+[signals_width] 461
+[sst_expanded] 1
+[sst_vpaned_height] 343
+@28
+TOP.TestHarness.top.tile.v.cmd_fsm.clock
+TOP.TestHarness.top.tile.v.cmd_fsm.reset
+@800200
+-cmd_fsm
+@28
+TOP.TestHarness.top.tile.v.cmd_fsm.io_busy
+TOP.TestHarness.top.tile.v.cmd_fsm.state[1:0]
+@800200
+-rocc
+@28
+[color] 2
+TOP.TestHarness.top.tile.v.cmd_fsm.io_cmd_ready
+[color] 2
+TOP.TestHarness.top.tile.v.cmd_fsm.io_cmd_valid
+@2024
+[color] 2
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
+TOP.TestHarness.top.tile.v.cmd_fsm.io_cmd_bits_inst_funct[6:0]
+@22
+[color] 2
+TOP.TestHarness.top.tile.v.cmd_fsm.io_cmd_bits_rs1[63:0]
+[color] 2
+TOP.TestHarness.top.tile.v.cmd_fsm.io_cmd_bits_rs2[63:0]
+@1000200
+-rocc
+@800200
+-tiler
+@28
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_ready
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_valid
+@24
+[color] 5
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_m[31:0]
+[color] 5
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_n[31:0]
+[color] 5
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_k[31:0]
+@22
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_addr_a[63:0]
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_addr_b[63:0]
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_addr_c[63:0]
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_addr_d[63:0]
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_in_rshift[4:0]
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_acc_rshift[4:0]
+@28
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_activation[1:0]
+@22
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_relu6_lshift[4:0]
+@28
+TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_repeating_bias
+@1000200
+-tiler
+-cmd_fsm
+@800200
+-tiler-fsm
+@2025
+^2 /k/work/cy-gemmini/sims/verilator/gtkwave/fsm-tiler-state.filter
+TOP.TestHarness.top.tile.v.tiler.fsm.state[3:0]
+@800200
+-constants
+@24
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_HAS_BIAS
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_REPEATING_BIAS
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_DATAFLOW
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_ACTIVATION[1:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_SYSTOLIC_OUT_RSHIFT[4:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_ACC_OUT_RSHIFT[4:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_RELU6_IN_LSHIFT[4:0]
+@22
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_A_MEM_ADDR[63:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_B_MEM_ADDR[63:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_C_MEM_ADDR[63:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_D_MEM_ADDR[63:0]
+@24
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_A_BYTES_PER_TILE_ROW[30:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_B_BYTES_PER_TILE_ROW[30:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_C_BYTES_PER_TILE_ROW[30:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_D_BYTES_PER_TILE_ROW[30:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_A_BYTES_PER_ROW[25:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_B_BYTES_PER_ROW[25:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_C_BYTES_PER_ROW[25:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_D_BYTES_PER_ROW[25:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_LAST_M_ITEMS[5:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_LAST_N_ITEMS[5:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.g_LAST_K_ITEMS[5:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_TILE_COL_END[23:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_TILE_ROW_END[23:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.g_K_TILE_COL_END[23:0]
+@1000200
+-constants
+@800200
+-global-mutable
+@24
+[color] 5
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_tile_col[23:0]
+[color] 5
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_tile_row[23:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_tile_col_n[23:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_tile_row_n[23:0]
+[color] 5
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_item_cols[5:0]
+[color] 5
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_item_rows[5:0]
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_B_alt_sp_row_addr[12:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_B_cur_sp_row_addr[12:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_CD_acc_row_addr[8:0]
+@1000200
+-global-mutable
+@800200
+-schedq
+@28
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_deq_ready
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_deq_valid
+@24
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_deq_bits_inst_funct[6:0]
+@22
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_deq_bits_rs1[63:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_deq_bits_rs2[63:0]
+@24
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_ready[1:0]
+[color] 3
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_push[1:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_0_inst_funct[6:0]
+@22
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_0_rs1[63:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_0_rs2[63:0]
+@24
+[color] 2
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_inst_funct[6:0]
+@22
+[color] 2
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_rs1[63:0]
+[color] 2
+TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_rs2[63:0]
+@1000200
+-schedq
+-tiler-fsm
+[pattern_trace] 1
+[pattern_trace] 0
