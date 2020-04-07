@@ -55,3 +55,19 @@ class GemminiEE290Lab3SmallSPRocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++
   new freechips.rocketchip.system.BaseConfig)
 
+//============================================================================
+// EE290 Rocket Configs (gemmini2)
+//============================================================================
+
+class Gemmini2EE290Lab3RocketConfig extends Config(
+  new WithTSI ++
+  new WithNoGPIO ++
+  new WithBootROM ++
+  new WithUART ++
+  new freechips.rocketchip.subsystem.WithNoMMIOPort ++
+  new freechips.rocketchip.subsystem.WithNoSlavePort ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache ++
+  gemmini.WithEE290Lab3Gemmini2Config() ++ 
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++
+  new freechips.rocketchip.system.BaseConfig)
+
