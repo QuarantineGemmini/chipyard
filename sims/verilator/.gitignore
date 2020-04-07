@@ -4,4 +4,6 @@
 !verilator.mk
 !patch
 !patch/*
+!gtkwave
+!gtkwave/*
 *.swp

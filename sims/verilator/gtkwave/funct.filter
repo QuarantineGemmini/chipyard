@@ -1,0 +1,23 @@
+#======================================
+# Gemmini1 opcodes                 
+#======================================
+0 CONFIG_CMD
+2 LOAD_CMD
+3 STORE_CMD
+4 COMPUTE_AND_FLIP_CMD
+5 COMPUTE_AND_STAY_CMD
+6 PRELOAD_CMD
+7 FLUSH_CMD
+8 LOOP_WS
+                                          
+#======================================
+# New Gemmini2 opcodes                 
+#======================================
+#4 COMPUTE_ALL
+10 ADDR_AB
+11 ADDR_CD
+12 SIZE0
+13 SIZE1
+14 RPT_BIAS
+15 RESET
+
