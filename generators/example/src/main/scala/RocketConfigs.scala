@@ -40,7 +40,7 @@ class GemminiRocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNoMMIOPort ++
   new freechips.rocketchip.subsystem.WithNoSlavePort ++
   new freechips.rocketchip.subsystem.WithInclusiveCache ++
-  new gemmini.DefaultGemminiConfig ++                        // use Gemmini systolic array GEMM accelerator
+  gemmini.WithDefaultGemminiConfig() ++                        // use Gemmini systolic array GEMM accelerator
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++
   new freechips.rocketchip.system.BaseConfig)
 // DOC include end: GemminiRocketConfig

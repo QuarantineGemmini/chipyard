@@ -6,34 +6,40 @@ import freechips.rocketchip.subsystem._
 import firesim.bridges._
 import firesim.configs._
 
-
-//**********************************************************************************
-//* EE290-2 FireSim Gemmini Configurations
-//*********************************************************************************/
-
+//============================================================================
+// EE290-2 FireSim Gemmini Configurations
+//============================================================================
 class FireSimGemminiEE290Lab2RocketConfig extends Config(
   new WithInclusiveCache ++
-  new gemmini.GemminiEE290Lab2Config ++
+  gemmini.WithEE290Lab2GemminiConfig() ++
   new WithNBigCores(1) ++
   new FireSimRocketChipConfig)
 
 
 class FireSimGemminiEE290Lab2BigSPRocketConfig extends Config(
   new WithInclusiveCache ++
-  new gemmini.GemminiEE290Lab2LargeSPConfig ++
+  gemmini.WithEE290Lab2LargeSPGemminiConfig() ++ 
   new WithNBigCores(1) ++
   new FireSimRocketChipConfig)
 
 class FireSimGemminiEE290Lab3RocketConfig extends Config(
   new WithInclusiveCache ++
-  new gemmini.GemminiEE290Lab3Config ++
+  gemmini.WithEE290Lab3GemminiConfig() ++ 
   new WithNBigCores(1) ++
   new FireSimRocketChipConfig)
 
 
 class FireSimGemminiEE290Lab3SmallSPRocketConfig extends Config(
   new WithInclusiveCache ++
-  new gemmini.GemminiEE290Lab3SmallSPConfig ++
+  gemmini.WithEE290Lab3SmallSPGemminiConfig() ++
   new WithNBigCores(1) ++
   new FireSimRocketChipConfig)
 
+//============================================================================
+// EE290-2 FireSim Configurations (gemmini2)
+//============================================================================
+class FireSimGemmini2EE290Lab3RocketConfig extends Config(
+  new WithInclusiveCache ++
+  gemmini.WithEE290Lab3Gemmini2Config() ++ 
+  new WithNBigCores(1) ++
+  new FireSimRocketChipConfig)
