@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.102 (w)1999-2019 BSI
-[*] Wed Apr  8 05:54:47 2020
+[*] Wed Apr  8 17:42:33 2020
 [*]
-[dumpfile] "/k/work/cy-gemmini/sims/verilator/logs/2020-04-07_21-07-03__baremetal__hw_tiler__hw_g2__template-baremetal.vcd"
-[dumpfile_mtime] "Wed Apr  8 04:07:11 2020"
-[dumpfile_size] 166486570
+[dumpfile] "/k/work/cy-gemmini/sims/verilator/logs/2020-04-08_09-37-47__baremetal__hw_tiler__hw_g2__large_matmul_without_cpu-baremetal.vcd"
+[dumpfile_mtime] "Wed Apr  8 16:37:50 2020"
+[dumpfile_size] 41247970
 [savefile] "/k/work/cy-gemmini/sims/verilator/gtkwave/gemmini-g2.gtkw"
-[timestart] 63993
+[timestart] 28722
 [size] 1916 1161
 [pos] -1 -1
-*-4.000000 64029 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-4.000000 28757 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.TestHarness.
 [treeopen] TOP.TestHarness.top.
@@ -26,7 +26,7 @@
 [treeopen] TOP.TestHarness.top.tile.v.tlb.tlb.
 [treeopen] TOP.TestHarness.top.tile.v.tlb.tlb.tlb.
 [sst_width] 369
-[signals_width] 488
+[signals_width] 415
 [sst_expanded] 1
 [sst_vpaned_height] 335
 @28
@@ -165,6 +165,65 @@ TOP.TestHarness.top.tile.v.tiler.fsm.gbl_CD_acc_row_addr[8:0]
 @1000200
 -global-mutable
 @800200
+-loop1-state
+@22
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop1_A_mem_addr[63:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop1_B_mem_addr[63:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop1_C_mem_addr[63:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop1_D_mem_addr[63:0]
+@24
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop1_tile_col_end[23:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop1_tile_col_start[23:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop1_tile_row_end[23:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop1_tile_row_start[23:0]
+@1000200
+-loop1-state
+@800200
+-loop2-state
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.loop2_A_mem_addr[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.loop2_B_mem_addr[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.loop2_C_mem_addr[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.loop2_D_mem_addr[63:0]
+@24
+TOP.TestHarness.top.tile.v.tiler.fsm.loop2_k_item_dims[5:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.loop2_k_tile_col[23:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.loop2_k_tile_col_n[23:0]
+@1000200
+-loop2-state
+@800200
+-loop3-state
+@22
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop3_A_mem_addr[63:0]
+@23
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop3_B_mem_addr[63:0]
+@22
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop3_C_mem_addr[63:0]
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.fsm.loop3_D_mem_addr[63:0]
+@1000200
+-loop3-state
+@800200
+-loop4-state
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.loop4_A_mem_addr[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.loop4_C_mem_addr[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.loop4_D_mem_addr[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.loop4_A_sp_row_addr[12:0]
+@1000200
+-loop4-state
+@c00200
 -schedq
 @28
 [color] 1
@@ -203,10 +262,11 @@ TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_inst_funct[6:0]
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_rs1[63:0]
 [color] 2
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_rs2[63:0]
-@1000200
+@1401200
 -schedq
+@1000200
 -tiler-fsm
-@800200
+@c00200
 -tiler-sched
 @28
 [color] 1
@@ -261,8 +321,8 @@ TOP.TestHarness.top.tile.v.tiler.sched.io_issue_store_bits_cmd_inst_funct[6:0]
 TOP.TestHarness.top.tile.v.tiler.sched.io_issue_store_bits_cmd_rs1[63:0]
 [color] 6
 TOP.TestHarness.top.tile.v.tiler.sched.io_issue_store_bits_cmd_rs2[63:0]
-@1000200
--tiler-sched
+@c00200
+-rob-misc
 @22
 [color] 1
 TOP.TestHarness.top.tile.v.tiler.sched.new_entry_id[3:0]
@@ -305,7 +365,10 @@ TOP.TestHarness.top.tile.v.io_interrupt
 TOP.TestHarness.top.tile.v.tlb_io_exp_interrupt
 TOP.TestHarness.top.tile.v.tlb_io_exp_flush_retry
 TOP.TestHarness.top.tile.v.tlb_io_exp_flush_skip
-@800200
+@1401200
+-rob-misc
+-tiler-sched
+@c00200
 -load-ctrl
 @28
 TOP.TestHarness.top.tile.v.load.cmd_io_deq_valid
@@ -334,9 +397,9 @@ TOP.TestHarness.top.tile.v.load.io_dma_req_valid
 TOP.TestHarness.top.tile.v.load.localaddr_data[12:0]
 [color] 1
 TOP.TestHarness.top.tile.v.load.io_dma_req_bits_vaddr[39:0]
-@1000200
+@1401200
 -load-ctrl
-@800200
+@c00200
 -spad-dma-reader
 @28
 TOP.TestHarness.top.tile.v.spad.reader.io_req_ready
@@ -359,7 +422,7 @@ TOP.TestHarness.top.tile.v.spad.reader.io_tlb_resp_valid
 @22
 [color] 2
 TOP.TestHarness.top.tile.v.spad.reader.io_tlb_resp_bits_paddr[31:0]
-@1000200
+@1401200
 -spad-dma-reader
 @c00200
 -decoupled-tlb
@@ -497,7 +560,7 @@ TOP.TestHarness.top.tile.v.tlb.tlb.tlb_io_sfence_valid
 TOP.TestHarness.top.tile.v.tlb.tlb.tlb_reset
 @1401200
 -decoupled-tlb
-@800200
+@c00200
 -decoupled-tlb
 @28
 [color] 2
@@ -520,10 +583,9 @@ TOP.TestHarness.top.tile.v.tlb.tlb.io_req_bits_tlb_req_cmd[4:0]
 TOP.TestHarness.top.tile.v.tlb.tlb.io_req_bits_tlb_req_passthrough
 [color] 2
 TOP.TestHarness.top.tile.v.tlb.tlb.io_req_bits_tlb_req_size[2:0]
-@23
+@22
 [color] 2
 TOP.TestHarness.top.tile.v.tlb.tlb.io_req_bits_tlb_req_vaddr[39:0]
-@22
 [color] 4
 TOP.TestHarness.top.tile.v.tlb.tlb.tlb_io_ptw_req_bits_bits_addr[26:0]
 @28
@@ -576,7 +638,7 @@ TOP.TestHarness.top.tile.v.tlb.tlb.tlb_io_resp_pf_inst
 [color] 7
 TOP.TestHarness.top.tile.v.tlb.tlb.tlb_io_resp_prefetchable
 TOP.TestHarness.top.tile.v.tlb.tlb.tlb_io_sfence_valid
-@1000200
+@1401200
 -decoupled-tlb
 [pattern_trace] 1
 [pattern_trace] 0
