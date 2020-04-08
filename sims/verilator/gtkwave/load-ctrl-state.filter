@@ -1,0 +1,7 @@
+#======================================
+# load-controller states
+#======================================
+0 WAITING_FOR_COMMAND
+1 WAITING_FOR_DMA_REQ_READY
+2 SENDING_ROWS
+
