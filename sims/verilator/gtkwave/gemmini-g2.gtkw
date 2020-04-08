@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.102 (w)1999-2019 BSI
-[*] Tue Apr  7 22:52:59 2020
+[*] Wed Apr  8 02:58:54 2020
 [*]
-[dumpfile] "/k/work/cy-gemmini/sims/verilator/logs/2020-04-07_14-56-57__baremetal__hw_tiler__hw_g2__template-baremetal.vcd"
-[dumpfile_mtime] "Tue Apr  7 21:57:04 2020"
-[dumpfile_size] 169019209
+[dumpfile] "/k/work/cy-gemmini/sims/verilator/logs/2020-04-07_18-39-41__baremetal__hw_tiler__hw_g2__template-baremetal.vcd"
+[dumpfile_mtime] "Wed Apr  8 01:39:47 2020"
+[dumpfile_size] 152991684
 [savefile] "/k/work/cy-gemmini/sims/verilator/gtkwave/gemmini-g2.gtkw"
-[timestart] 63937
+[timestart] 63955
 [size] 1916 1161
 [pos] -1 -1
-*-4.000000 63961 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-3.000000 63981 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.TestHarness.
 [treeopen] TOP.TestHarness.top.
@@ -20,13 +20,13 @@
 [treeopen] TOP.TestHarness.top.tile.v.tiler.
 [treeopen] TOP.TestHarness.top.tile.v.tiler.fsm.
 [sst_width] 369
-[signals_width] 461
+[signals_width] 488
 [sst_expanded] 1
-[sst_vpaned_height] 343
+[sst_vpaned_height] 344
 @28
 TOP.TestHarness.top.tile.v.cmd_fsm.clock
 TOP.TestHarness.top.tile.v.cmd_fsm.reset
-@800200
+@c00200
 -cmd_fsm
 @28
 TOP.TestHarness.top.tile.v.cmd_fsm.io_busy
@@ -76,13 +76,10 @@ TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_relu6_lshift[4:0]
 TOP.TestHarness.top.tile.v.cmd_fsm.io_tiler_bits_repeating_bias
 @1000200
 -tiler
+@1401200
 -cmd_fsm
 @800200
 -tiler-fsm
-@2025
-^2 /k/work/cy-gemmini/sims/verilator/gtkwave/fsm-tiler-state.filter
-TOP.TestHarness.top.tile.v.tiler.fsm.state[3:0]
-@800200
 -constants
 @24
 [color] 3
@@ -139,6 +136,9 @@ TOP.TestHarness.top.tile.v.tiler.fsm.g_TILE_ROW_END[23:0]
 TOP.TestHarness.top.tile.v.tiler.fsm.g_K_TILE_COL_END[23:0]
 @1000200
 -constants
+@2024
+^2 /k/work/cy-gemmini/sims/verilator/gtkwave/fsm-tiler-state.filter
+TOP.TestHarness.top.tile.v.tiler.fsm.state[3:0]
 @800200
 -global-mutable
 @24
@@ -165,8 +165,9 @@ TOP.TestHarness.top.tile.v.tiler.fsm.gbl_CD_acc_row_addr[8:0]
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_deq_ready
 [color] 1
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_deq_valid
-@24
+@2024
 [color] 1
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_deq_bits_inst_funct[6:0]
 @22
 [color] 1
@@ -178,15 +179,18 @@ TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_deq_bits_rs2[63:0]
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_ready[1:0]
 [color] 3
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_push[1:0]
+@2024
 [color] 1
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_0_inst_funct[6:0]
 @22
 [color] 1
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_0_rs1[63:0]
 [color] 1
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_0_rs2[63:0]
-@24
+@2024
 [color] 2
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_inst_funct[6:0]
 @22
 [color] 2
@@ -196,5 +200,109 @@ TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_rs2[63:0]
 @1000200
 -schedq
 -tiler-fsm
+@800200
+-tiler-sched
+@28
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_exec_ready
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_exec_valid
+@22
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_exec_bits_rob_id[3:0]
+@2024
+[color] 6
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_exec_bits_cmd_inst_funct[6:0]
+@22
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_exec_bits_cmd_rs1[63:0]
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_exec_bits_cmd_rs2[63:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_load_ready
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_load_valid
+@22
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_load_bits_rob_id[3:0]
+@2024
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_load_bits_cmd_inst_funct[6:0]
+@22
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_load_bits_cmd_rs1[63:0]
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_load_bits_cmd_rs2[63:0]
+@28
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_store_ready
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_store_valid
+@22
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_store_bits_rob_id[3:0]
+@2024
+[color] 6
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_store_bits_cmd_inst_funct[6:0]
+@22
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_store_bits_cmd_rs1[63:0]
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_store_bits_cmd_rs2[63:0]
+@28
+[color] 4
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_flush_ready
+[color] 4
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_flush_valid
+@22
+[color] 4
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_flush_bits_rob_id[3:0]
+@2024
+[color] 4
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_flush_bits_cmd_inst_funct[6:0]
+@22
+[color] 4
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_flush_bits_cmd_rs1[63:0]
+[color] 4
+TOP.TestHarness.top.tile.v.tiler.sched.io_issue_flush_bits_cmd_rs2[63:0]
+@1000200
+-tiler-sched
+@22
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_id[3:0]
+@28
+[color] 1
+TOP.TestHarness.top.tile.v.tiler.sched.alloc_fire
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_is_config
+@29
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_is_exec
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_is_load
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_is_store
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_is_flush
+@28
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_dst_valid
+@22
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_dst_end[29:0]
+@28
+[color] 2
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_op1_valid
+[color] 2
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_op1_is_sp
+@22
+[color] 2
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_op1_start[29:0]
+[color] 2
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_op1_end[29:0]
+@28
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_op2_valid
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_op2_is_sp
+@22
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_op2_start[29:0]
+[color] 6
+TOP.TestHarness.top.tile.v.tiler.sched.new_entry_op2_end[29:0]
 [pattern_trace] 1
 [pattern_trace] 0
