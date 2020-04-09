@@ -3,7 +3,7 @@
 FORCE=
 #FORCE=-force 
 
-buildsim_gemmini $FORCE -noisy -vl8_threads $MYCORES \
+buildsim_gemmini -force -noisy -vl8_threads 20 \
   -hw_g1_dse1 verilator \
   -hw_g1_dse2 verilator \
   -hw_g1_dse3 verilator \
