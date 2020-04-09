@@ -5,8 +5,17 @@ use warnings;
 
 use FindBin qw($RealBin);
 
-my $CPU_SW_CONFIG = "fsm_tiler";
-my $CPU_HW_CONFIG = "hw_g1_dse5";
+# input/output sizes
+my $ITYPE_BYTES = 1;
+my $OTYPE_BYTES = 4;
+
+# 64-bit wide SystemBus
+my $CPU1_SW_CONFIG = "hw_tiler";
+my $CPU1_HW_CONFIG = "hw_g2_dse1";
+
+# 128-bit wide SystemBus
+my $CPU2_SW_CONFIG = "hw_tiler";
+my $CPU2_HW_CONFIG = "hw_g2_dse5";
 
 my @data = ();
 my $outputfile = "$RealBin/results.csv";
@@ -20,22 +29,23 @@ foreach my $file (glob("$RealBin/*.log")) {
   }
 
   my @lines = map {chomp; $_} `cat $file`;
-  my ($m, $n, $k, $cpu, $gemmini);
+  my ($m, $n, $k);
   while(defined(my $line = shift(@lines))) {
     if($line =~ /^SUMMARY FOR MNK: (\d+) (\d+) (\d+)$/) {
       ($m, $n, $k) = ($1, $2, $3);
-      $cpu = undef;
-      $gemmini = undef;
     } 
     elsif($line =~ /^gemmini:\s*(\d+)\s/) {
-      $gemmini = $1;
-      push(@data, [$hwconfig, $swconfig, $m, $n, $k, $gemmini]);
+      my $cycles = $1;
+      push(@data, [$hwconfig, $swconfig, $m, $n, $k, $cycles]);
     }
     elsif($line =~ /^cpu:\s*(\d+)\s/) {
-      if(($hwconfig eq $CPU_HW_CONFIG) && ($swconfig eq $CPU_SW_CONFIG)) {
-        
+      my $cycles = $1;
+      if(($hwconfig eq $CPU1_HW_CONFIG) && ($swconfig eq $CPU1_SW_CONFIG)) {
+        push(@data, ["cpu1", "cpu", $m, $n, $k, $cycles]);
       }
-      $cpu = $1;
+      elsif(($hwconfig eq $CPU2_HW_CONFIG) && ($swconfig eq $CPU2_SW_CONFIG)) {
+        push(@data, ["cpu2", "cpu", $m, $n, $k, $cycles]);
+      }
     }
   }
 }
@@ -47,8 +57,19 @@ foreach my $file (glob("$RealBin/*.log")) {
                ($a->[4] <=> $b->[4]) } @data;
 
 open(my $OFH, "> $outputfile") || die("open $outputfile: $!\n");
-$OFH->print(join("\t", qw(swconfig hwconfig m n k cpu gemmini))."\n");
+$OFH->print(join("\t", qw(swconfig hwconfig m n k bias mn-ratio ops 
+                          bytes op/byte cycles op/cycle))."\n");
 foreach my $line (@data) {
-  $OFH->print(join("\t", @{$line})."\n");
+  my ($hwconfig, $swconfig, $m, $n, $k, $cycles) = @{$line};
+  my $bias = "yes";
+  my $mn_ratio = sprintf("%.3f", $m/$n);
+  my $ops = $m*$n*$k;
+  my $bytes = $m*$n*$OTYPE_BYTES + ($m*$k + $k*$n)*$ITYPE_BYTES;
+  my $op_per_byte = sprintf("%.3f", $ops/$bytes);
+  my $op_per_cycle = sprintf("%.2f", $ops/$cycles);
+  $OFH->print(join("\t", $hwconfig, $swconfig, $m, $n, $k, $bias, $mn_ratio,
+                   $ops, $bytes, $op_per_byte, $cycles, $op_per_cycle)."\n");
 }
 close($OFH) || die("close $outputfile: $!\n");
+
+printf("finished generating $outputfile!\n");
