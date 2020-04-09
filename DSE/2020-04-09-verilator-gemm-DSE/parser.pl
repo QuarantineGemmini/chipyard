@@ -57,7 +57,7 @@ foreach my $file (glob("$RealBin/*.log")) {
                ($a->[4] <=> $b->[4]) } @data;
 
 open(my $OFH, "> $outputfile") || die("open $outputfile: $!\n");
-$OFH->print(join("\t", qw(swconfig hwconfig m n k bias mn-ratio ops 
+$OFH->print(join("\t", qw(hwconfig swconfig m n k bias mn-ratio ops 
                           bytes op/byte cycles op/cycle))."\n");
 foreach my $line (@data) {
   my ($hwconfig, $swconfig, $m, $n, $k, $cycles) = @{$line};

@@ -1,4 +1,4 @@
-swconfig	hwconfig	m	n	k	bias	mn-ratio	ops	bytes	op/byte	cycles	op/cycle
+hwconfig	swconfig	m	n	k	bias	mn-ratio	ops	bytes	op/byte	cycles	op/cycle
 cpu1	cpu	1	1024	1	yes	0.001	1024	5121	0.200	31055	0.03
 cpu1	cpu	1	1024	4	yes	0.001	4096	8196	0.500	62629	0.07
 cpu1	cpu	1	1024	16	yes	0.001	16384	20496	0.799	205370	0.08
