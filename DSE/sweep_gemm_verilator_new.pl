@@ -5,14 +5,14 @@ use warnings;
 
 my $GEMM_WORKLOAD_ID = 10;
 my @hw_configs = (
-  ["-hw_g2_dse1", "-hw_tiler"],
+  #["-hw_g2_dse1", "-hw_tiler"],
   ["-hw_g2_dse2", "-hw_tiler"], 
   ["-hw_g2_dse3", "-hw_tiler"],
   ["-hw_g2_dse4", "-hw_tiler"],
-  ["-hw_g2_dse5", "-hw_tiler"],
-  ["-hw_g2_dse6", "-hw_tiler"],
-  ["-hw_g2_dse7", "-hw_tiler"],
-  ["-hw_g2_dse8", "-hw_tiler"],
+  #["-hw_g2_dse5", "-hw_tiler"],
+  #["-hw_g2_dse6", "-hw_tiler"],
+  #["-hw_g2_dse7", "-hw_tiler"],
+  #["-hw_g2_dse8", "-hw_tiler"],
 );
 my @mnks = (
   [1024,   1,  1],    # GEMV
