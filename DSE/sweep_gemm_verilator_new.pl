@@ -51,36 +51,15 @@ my @mnks = (
   [   1,1024, 64],    # GEMV
   [   1,1024,256],    # GEMV
 );
+my $sizes = join(" ", (map {join(" ", @{$_})} @mnks));
 
-my $failed = 0;
-sub runsweepfunc {
-  my ($func) = @_;
-  foreach my $hw_config (@hw_configs) {
-    foreach my $mnk (@mnks) {
-      my ($m, $n, $k) = @{$mnk};
-      $func->($hw_config, $m, $n, $k);
-    }
-  }
+my $status = 0;
+foreach my $hw_config (@hw_configs) {
+  my $cmd = "runsim_gemmini @{$hw_config} -verilator -pk ".
+            "-noisy -args '-zeros -verify $sizes' $GEMM_WORKLOAD_ID 2>&1";
+            #"-noisy -args '-verify $sizes' $GEMM_WORKLOAD_ID 2>&1";
+            #"-noisy -args '-zeros $sizes' $GEMM_WORKLOAD_ID 2>&1";
+  $status = $status || system($cmd);
 }
 
-runsweepfunc(sub {
-  my ($hw_config, $m, $n, $k) = @_;
-  my $cmd = "runsim_gemmini @{$hw_config} -verilator -pk ".
-            "-noisy -args '$m $n $k -zeros' $GEMM_WORKLOAD_ID 2>&1";
-            #"-noisy -args '$m $n $k -verify' $GEMM_WORKLOAD_ID 2>&1";
-  print("starting: $cmd .............. ");
-  my @output = `$cmd`;
-  my $status = ${^CHILD_ERROR_NATIVE};
-  if($status != 0) {
-    $failed = 1;
-    printf("CMD FAILED: $cmd\n");
-  } else {
-    my $cpu_line     = (grep {s/^cpu:\s*(\d+)\s*.*$/$1/} @output)[0];
-    my $gemmini_line = (grep {s/^gemmini:\s*(\d+)\s*.*$/$1/} @output)[0];
-    chomp($cpu_line);
-    chomp($gemmini_line);
-    printf("mnk: $m $n $k cpu: $cpu_line gemmini: $gemmini_line\n");
-  }
-});
-
-exit($failed);
+exit($status);
