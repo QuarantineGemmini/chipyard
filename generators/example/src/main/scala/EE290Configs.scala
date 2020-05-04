@@ -269,4 +269,78 @@ class Gemminidim32sp16acc64bus128 extends Config(
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++
   new freechips.rocketchip.system.BaseConfig)
 
+//============================================================================
+// FgGemmini2 Design Space Exploration Top Level Configs
+//============================================================================
+class FgGemmini2dim32fg32 extends Config( 
+  new WithTSI ++
+  new WithNoGPIO ++
+  new WithBootROM ++
+  new WithUART ++
+  new freechips.rocketchip.subsystem.WithNoMMIOPort ++
+  new freechips.rocketchip.subsystem.WithNoSlavePort ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache ++
+  gemmini.WithFgGemmini2dim32fg32() ++
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++
+  new freechips.rocketchip.system.BaseConfig)
+
+class FgGemmini2dim32fg16 extends Config( 
+  new WithTSI ++
+  new WithNoGPIO ++
+  new WithBootROM ++
+  new WithUART ++
+  new freechips.rocketchip.subsystem.WithNoMMIOPort ++
+  new freechips.rocketchip.subsystem.WithNoSlavePort ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache ++
+  gemmini.WithFgGemmini2dim32fg16() ++
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++
+  new freechips.rocketchip.system.BaseConfig)
+
+class FgGemmini2dim32fg8 extends Config( 
+  new WithTSI ++
+  new WithNoGPIO ++
+  new WithBootROM ++
+  new WithUART ++
+  new freechips.rocketchip.subsystem.WithNoMMIOPort ++
+  new freechips.rocketchip.subsystem.WithNoSlavePort ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache ++
+  gemmini.WithFgGemmini2dim32fg8() ++
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++
+  new freechips.rocketchip.system.BaseConfig)
+
+class FgGemmini2dim16fg16 extends Config( 
+  new WithTSI ++
+  new WithNoGPIO ++
+  new WithBootROM ++
+  new WithUART ++
+  new freechips.rocketchip.subsystem.WithNoMMIOPort ++
+  new freechips.rocketchip.subsystem.WithNoSlavePort ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache ++
+  gemmini.WithFgGemmini2dim16fg16() ++
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++
+  new freechips.rocketchip.system.BaseConfig)
+
+class FgGemmini2dim16fg8 extends Config( 
+  new WithTSI ++
+  new WithNoGPIO ++
+  new WithBootROM ++
+  new WithUART ++
+  new freechips.rocketchip.subsystem.WithNoMMIOPort ++
+  new freechips.rocketchip.subsystem.WithNoSlavePort ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache ++
+  gemmini.WithFgGemmini2dim16fg8() ++
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++
+  new freechips.rocketchip.system.BaseConfig)
+
+class FgGemmini2dim16fg4 extends Config( 
+  new WithTSI ++
+  new WithNoGPIO ++
+  new WithBootROM ++
+  new WithUART ++
+  new freechips.rocketchip.subsystem.WithNoMMIOPort ++
+  new freechips.rocketchip.subsystem.WithNoSlavePort ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache ++
+  gemmini.WithFgGemmini2dim16fg4() ++
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++
+  new freechips.rocketchip.system.BaseConfig)
 

@@ -1,0 +1,118 @@
+[*]
+[*] GTKWave Analyzer v3.3.102 (w)1999-2019 BSI
+[*] Mon May  4 21:32:17 2020
+[*]
+[dumpfile] "/k/work/cy-gemmini/sims/verilator/logs/2020-05-04_14-23-17__pk__hw_tiler__hw_fg_dse6__gemm-pk.vcd"
+[dumpfile_mtime] "Mon May  4 21:24:08 2020"
+[dumpfile_size] 548559892
+[savefile] "/k/work/cy-gemmini/sims/verilator/gtkwave/gemmini-fg.gtkw"
+[timestart] 1194195
+[size] 1916 1161
+[pos] -1 -1
+*-4.000000 1194247 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.TestHarness.
+[treeopen] TOP.TestHarness.top.
+[treeopen] TOP.TestHarness.top.tile.
+[treeopen] TOP.TestHarness.top.tile.v.
+[treeopen] TOP.TestHarness.top.tile.v.tiler.
+[sst_width] 257
+[signals_width] 422
+[sst_expanded] 1
+[sst_vpaned_height] 343
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.clock
+@800200
+-cmd_in
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_ready
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_valid
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_acc_rshift[4:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_activation[1:0]
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_addr_a[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_addr_b[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_addr_c[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_addr_d[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_in_rshift[4:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_k[31:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_m[31:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_n[31:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_relu6_lshift[4:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_repeating_bias
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_status_debug
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_status_dprv[1:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_status_mxr
+TOP.TestHarness.top.tile.v.tiler.fsm.io_cmd_in_bits_status_sum
+@1000200
+-cmd_in
+@2025
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/fg-tiler-fsm-state.filter
+TOP.TestHarness.top.tile.v.tiler.fsm.state[4:0]
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.g_RELU6_IN_LSHIFT[4:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.g_REPEATING_BIAS
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.g_SYSTOLIC_OUT_RSHIFT[4:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_ACC_OUT_RSHIFT[4:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.g_ACTIVATION[1:0]
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.g_A_BYTES_PER_ROW[26:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_B_BYTES_PER_ROW[26:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_C_BYTES_PER_ROW[26:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_D_BYTES_PER_ROW[26:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_A_BYTES_PER_TILE_ROW[30:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_A_MEM_ADDR[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_B_BYTES_PER_TILE_ROW[30:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_B_MEM_ADDR[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_C_BYTES_PER_TILE_ROW[30:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_C_MEM_ADDR[63:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.g_DATAFLOW
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.g_D_BYTES_PER_TILE_ROW[30:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_D_MEM_ADDR[63:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_FG_TILE_COLS_PER_TILE[4:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_FG_TILE_COL_END[23:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_FG_TILE_ROWS_PER_TILE[4:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_FG_TILE_ROW_END[23:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.g_HAS_BIAS
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.g_ITEM_COLS_PER_TILE[6:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_ITEM_ROWS_PER_TILE[6:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_I_BYTE_COLS_PER_GROUP[10:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_I_BYTE_COLS_PER_TILE[6:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_K_TILE_COL_END[23:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_LAST_K_ITEMS[6:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_LAST_M_ITEMS[6:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_LAST_N_ITEMS[6:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_O_BYTE_COLS_PER_GROUP[10:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_O_BYTE_COLS_PER_TILE[8:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_TILE_COLS_PER_GROUP[4:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_TILE_ROWS_PER_GROUP[4:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_TILE_COL_END[23:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.g_TILE_ROW_END[23:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_A_fg_col_start[1:0]
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_A_row_addr[5:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_B_alt_row_addr[2:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_B_cur_row_addr[2:0]
+@22
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_CD_fg_col_start[3:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_CD_row_addr[5:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_item_cols[6:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_item_rows[6:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_tile_col[23:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_tile_col_n[23:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_tile_row[23:0]
+TOP.TestHarness.top.tile.v.tiler.fsm.gbl_tile_row_n[23:0]
+[pattern_trace] 1
+[pattern_trace] 0
