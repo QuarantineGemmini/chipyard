@@ -66,8 +66,8 @@ my $sizes = join(" ", (map {join(" ", @{$_})} @mnks));
 my $status = 0;
 foreach my $hw_config (@hw_configs) {
   my $cmd = "runsim_gemmini @{$hw_config} -verilator -pk ".
-            "-debug -noisy -args '-verify $sizes' $GEMM_WORKLOAD_ID 2>&1";
-            #"-noisy -args '-zeros -verify $sizes' $GEMM_WORKLOAD_ID 2>&1";
+            #"-debug -noisy -args '-verify $sizes' $GEMM_WORKLOAD_ID 2>&1";
+            "-noisy -args '-zeros -verify $sizes' $GEMM_WORKLOAD_ID 2>&1";
             #"-noisy -args '-verify $sizes' $GEMM_WORKLOAD_ID 2>&1";
             #"-noisy -args '-zeros $sizes' $GEMM_WORKLOAD_ID 2>&1";
   $status = $status || system($cmd);
