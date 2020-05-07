@@ -1,22 +1,26 @@
 [*]
 [*] GTKWave Analyzer v3.3.102 (w)1999-2019 BSI
-[*] Tue May  5 18:47:02 2020
+[*] Thu May  7 03:18:06 2020
 [*]
-[dumpfile] "/k/work/cy-gemmini/sims/verilator/logs/2020-05-04_22-17-19__pk__hw_tiler__hw_fg_dse6__gemm-pk.vcd"
-[dumpfile_mtime] "Tue May  5 05:18:15 2020"
-[dumpfile_size] 563955363
+[dumpfile] "/k/work/cy-gemmini/sims/verilator/logs/2020-05-06_19-52-05__pk__hw_tiler__hw_fg_dse6__gemm-pk.vcd"
+[dumpfile_mtime] "Thu May  7 02:52:42 2020"
+[dumpfile_size] 293138920
 [savefile] "/k/work/cy-gemmini/sims/verilator/gtkwave/gemmini-fg.gtkw"
-[timestart] 1194679
+[timestart] 1195037
 [size] 1916 1161
 [pos] -1 -1
-*-5.000000 1194831 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-4.000000 1195107 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.TestHarness.
 [treeopen] TOP.TestHarness.top.
 [treeopen] TOP.TestHarness.top.tile.
 [treeopen] TOP.TestHarness.top.tile.v.
-[treeopen] TOP.TestHarness.top.tile.v.exec.
-[treeopen] TOP.TestHarness.top.tile.v.mem.loadD.
+[treeopen] TOP.TestHarness.top.tile.v.exec.mesh.
+[treeopen] TOP.TestHarness.top.tile.v.loadB.
+[treeopen] TOP.TestHarness.top.tile.v.mem.
+[treeopen] TOP.TestHarness.top.tile.v.mem.storeC.
+[treeopen] TOP.TestHarness.top.tile.v.storeC.
+[treeopen] TOP.TestHarness.top.tile.v.tiler.
 [sst_width] 307
 [signals_width] 554
 [sst_expanded] 1
@@ -149,9 +153,8 @@ TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_0_inst_funct[6:0]
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_0_rs1[63:0]
 [color] 2
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_0_rs2[63:0]
-@2024
-^2 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
-TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_inst_funct[6:0]
+@200
+-schedq_io_enq_bits_1_inst_funct[6:0]
 @22
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_rs1[63:0]
 TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_rs2[63:0]
@@ -159,8 +162,15 @@ TOP.TestHarness.top.tile.v.tiler.fsm.schedq_io_enq_bits_1_rs2[63:0]
 -schedq-push
 -fsm-tiler
 @800200
--loadB
+-fsm-scheduler
+@22
+TOP.TestHarness.top.tile.v.tiler.arb.io_out_bits[3:0]
+@28
+TOP.TestHarness.top.tile.v.tiler.arb.io_out_valid
+@1000200
+-fsm-scheduler
 @c00200
+-loadB
 -cmd-deq
 @c02028
 ^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
@@ -261,6 +271,7 @@ TOP.TestHarness.top.tile.v.loadB.io_completed_valid
 TOP.TestHarness.top.tile.v.loadB.io_completed_bits[3:0]
 @1000200
 -tracker
+@1401200
 -loadB
 @c00200
 -mem-loadB-dma
@@ -654,6 +665,8 @@ TOP.TestHarness.top.tile.v.mem.loadD.merger.io_resp_bits_rob_id[3:0]
 -merger
 @1401200
 -mem-loadD-dma
+@c00200
+-ex-unit
 @c02028
 ^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
 #{cmd-rdyvld} TOP.TestHarness.top.tile.v.exec.io_cmd_ready TOP.TestHarness.top.tile.v.exec.io_cmd_valid
@@ -675,12 +688,220 @@ TOP.TestHarness.top.tile.v.exec.io_completed_valid
 @22
 TOP.TestHarness.top.tile.v.exec.io_completed_bits[3:0]
 @28
+TOP.TestHarness.top.tile.v.exec.is_config_cmd
+TOP.TestHarness.top.tile.v.exec.is_compute_cmd
+TOP.TestHarness.top.tile.v.exec.is_preload_cmd
 TOP.TestHarness.top.tile.v.exec.is_reading_a
 TOP.TestHarness.top.tile.v.exec.is_reading_b
 TOP.TestHarness.top.tile.v.exec.is_mul_tag_finished
-TOP.TestHarness.top.tile.v.exec.is_outputting
-TOP.TestHarness.top.tile.v.exec.is_outputting_last
 @22
 TOP.TestHarness.top.tile.v.exec.mesh_io_tag_in_bits_wb_lrange_row_start[15:0]
+@800200
+-fg-mesh
+@28
+TOP.TestHarness.top.tile.v.exec.mesh.current_tag_valid
+@22
+TOP.TestHarness.top.tile.v.exec.mesh.current_tag_bits_rob_id[3:0]
+TOP.TestHarness.top.tile.v.exec.mesh.current_tag_bits_wb_lrange_cols[15:0]
+TOP.TestHarness.top.tile.v.exec.mesh.current_tag_bits_wb_lrange_fg_col_start[11:0]
+@28
+TOP.TestHarness.top.tile.v.exec.mesh.current_tag_bits_wb_lrange_garbage
+TOP.TestHarness.top.tile.v.exec.mesh.current_tag_bits_wb_lrange_is_accum
+@22
+TOP.TestHarness.top.tile.v.exec.mesh.current_tag_bits_wb_lrange_row_start[15:0]
+TOP.TestHarness.top.tile.v.exec.mesh.current_tag_bits_wb_lrange_rows[15:0]
+@1000200
+-fg-mesh
+@1401200
+-ex-unit
+@800200
+-storeC
+@c02028
+[color] 1
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+#{alloc-rdyvld} TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_alloc_ready TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_alloc_valid
+@28
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_alloc_ready
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_alloc_valid
+@1401200
+-group_end
+@22
+[color] 1
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_alloc_bits_rob_id[3:0]
+[color] 1
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_alloc_bits_rows[6:0]
+@c02028
+[color] 7
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+#{completed-rdyvld} TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_completed_ready TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_completed_valid
+@28
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_completed_ready
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_completed_valid
+@1401200
+-group_end
+@22
+[color] 7
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_completed_bits[3:0]
+@c02028
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+#{progress-rdyvld} TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_progress_ready TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_progress_valid
+@28
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_progress_ready
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_progress_valid
+@1401200
+-group_end
+@22
+TOP.TestHarness.top.tile.v.storeC.cmd_tracker.io_progress_bits_rob_id[3:0]
+@c02028
+[color] 2
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+#{cmd-rdyvld} TOP.TestHarness.top.tile.v.storeC.cmd_io_enq_ready TOP.TestHarness.top.tile.v.storeC.cmd_io_enq_valid
+@28
+TOP.TestHarness.top.tile.v.storeC.cmd_io_enq_ready
+TOP.TestHarness.top.tile.v.storeC.cmd_io_enq_valid
+@1401200
+-group_end
+@2024
+[color] 2
+^2 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
+TOP.TestHarness.top.tile.v.storeC.cmd_io_enq_bits_cmd_inst_funct[6:0]
+@22
+[color] 2
+TOP.TestHarness.top.tile.v.storeC.cmd_io_enq_bits_cmd_rs1[63:0]
+[color] 2
+TOP.TestHarness.top.tile.v.storeC.cmd_io_enq_bits_cmd_rs2[63:0]
+[color] 2
+TOP.TestHarness.top.tile.v.storeC.cmd_io_enq_bits_rob_id[3:0]
+@c02028
+[color] 2
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+#{completed-rdyvld} TOP.TestHarness.top.tile.v.storeC.io_completed_ready TOP.TestHarness.top.tile.v.storeC.io_completed_valid
+@28
+TOP.TestHarness.top.tile.v.storeC.io_completed_ready
+TOP.TestHarness.top.tile.v.storeC.io_completed_valid
+@1401200
+-group_end
+@22
+[color] 2
+TOP.TestHarness.top.tile.v.storeC.io_completed_bits[3:0]
+@28
+[color] 2
+TOP.TestHarness.top.tile.v.storeC.is_config_cmd
+[color] 2
+TOP.TestHarness.top.tile.v.storeC.is_load_cmd
+[color] 2
+TOP.TestHarness.top.tile.v.storeC.is_store_cmd
+@1000200
+-storeC
+@800200
+-splitter
+@2024
+^5 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/splitter-state.filter
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.state[1:0]
+@24
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.txn_bytes_sent[6:0]
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.txn_bytes_sent_next[6:0]
+@22
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.io_peek_xactid[3:0]
+@24
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.io_peek_entry_data_start_idx[5:0]
+@22
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.io_peek_entry_paddr[39:0]
+@24
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.io_peek_entry_req_useful_bytes[6:0]
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.io_peek_entry_txn_useful_bytes[6:0]
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.io_peek_entry_txn_bytes[6:0]
+@28
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.io_peek_entry_txn_log2_bytes[2:0]
+@22
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.io_peek_entry_txn_start_idx[5:0]
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.useful_bytes_sent[6:0]
+@24
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.useful_bytes_sent_next[6:0]
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.beat_idx[1:0]
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.beat_start_idx[6:0]
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.beat_end_idx[6:0]
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.io_peek_entry_data_start_idx[5:0]
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.data_end_idx[6:0]
+@28
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.is_full
+[color] 1
+TOP.TestHarness.top.tile.v.mem.storeC.splitter.xfer_finished_next
+@22
+TOP.TestHarness.top.tile.v.mem.storeC.splitter_io_req_bits_data[511:0]
+@1000200
+-splitter
+@800200
+-tl-A
+@c02028
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+#{TL-A-rdyvld} TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_ready TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_valid
+@28
+TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_ready
+TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_valid
+@1401200
+-group_end
+@22
+TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_bits_source[3:0]
+@28
+TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_bits_opcode[2:0]
+@22
+TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_bits_size[3:0]
+TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_bits_address[31:0]
+TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_bits_data[127:0]
+TOP.TestHarness.top.tile.v.mem.storeC.auto_out_a_bits_mask[15:0]
+@1000200
+-tl-A
+@800200
+-tl-D
+@c02028
+[color] 7
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+#{TL-D_rdyvld} TOP.TestHarness.top.tile.v.mem.storeC.responder.io_tl_d_ready TOP.TestHarness.top.tile.v.mem.storeC.responder.io_tl_d_valid
+@2028
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+TOP.TestHarness.top.tile.v.mem.storeC.responder.io_tl_d_ready
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+TOP.TestHarness.top.tile.v.mem.storeC.responder.io_tl_d_valid
+@1401200
+-group_end
+@22
+[color] 7
+TOP.TestHarness.top.tile.v.mem.storeC.responder.io_tl_d_bits_xactid[3:0]
+@28
+TOP.TestHarness.top.tile.v.mem.storeC.responder.io_pop_valid
+@22
+TOP.TestHarness.top.tile.v.mem.storeC.responder.io_pop_bits[3:0]
+@24
+TOP.TestHarness.top.tile.v.mem.storeC.responder.useful_bytes_completed[6:0]
+@25
+TOP.TestHarness.top.tile.v.mem.storeC.responder.useful_bytes_completed_next[6:0]
+@24
+TOP.TestHarness.top.tile.v.mem.storeC.responder.io_peek_entry_req_useful_bytes[6:0]
+@28
+TOP.TestHarness.top.tile.v.mem.storeC.responder.finished_all_bytes
+TOP.TestHarness.top.tile.v.mem.storeC.responder.io_resp_valid
+@22
+TOP.TestHarness.top.tile.v.mem.storeC.responder.io_resp_bits_rob_id[3:0]
+@1000200
+-tl-D
+@28
+TOP.TestHarness.top.tile.v.mem.storeC.control.is_first_txn
+TOP.TestHarness.top.tile.v.mem.storeC.control.is_last_txn
+@c02028
+^3 /k/work/cy-gemmini/sims/verilator/gtkwave/filters/ready-valid.filter
+#{alloc-fire} TOP.TestHarness.top.tile.v.mem.storeC.control.io_alloc_ready TOP.TestHarness.top.tile.v.mem.storeC.control.io_alloc_valid
+@28
+TOP.TestHarness.top.tile.v.mem.storeC.control.io_alloc_ready
+TOP.TestHarness.top.tile.v.mem.storeC.control.io_alloc_valid
+@1401200
+-group_end
+@24
+TOP.TestHarness.top.tile.v.mem.storeC.control.best_txn_useful_bytes[6:0]
+TOP.TestHarness.top.tile.v.mem.storeC.control.io_alloc_bits_data_start_idx[5:0]
+TOP.TestHarness.top.tile.v.mem.storeC.control.best_txn_bytes[6:0]
+TOP.TestHarness.top.tile.v.mem.storeC.control.best_txn_data_start_idx[5:0]
+@22
+TOP.TestHarness.top.tile.v.mem.storeC.control.best_txn_paddr[31:0]
 [pattern_trace] 1
 [pattern_trace] 0
