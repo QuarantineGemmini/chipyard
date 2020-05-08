@@ -36,11 +36,20 @@ class FireSimGemminiEE290Lab3SmallSPRocketConfig extends Config(
   new FireSimRocketChipConfig)
 
 //============================================================================
+// EE290-2 FireSim Configurations (gemmini1)
+//============================================================================
+class FireSimGemminidim32sp16acc64bus128 extends Config(
+  new WithInclusiveCache ++
+  gemmini.WithGemminidim32sp16acc64bus128() ++
+  new WithNBigCores(1) ++
+  new FireSimRocketChipConfig)
+
+//============================================================================
 // EE290-2 FireSim Configurations (gemmini2)
 //============================================================================
-class FireSimGemmini2EE290Lab3RocketConfig extends Config(
+class FireSimGemmini2dim32sp16acc64bus128 extends Config(
   new WithInclusiveCache ++
-  gemmini.WithEE290Lab3Gemmini2Config() ++ 
+  gemmini.WithGemmini2dim32sp16acc64bus128() ++
   new WithNBigCores(1) ++
   new FireSimRocketChipConfig)
 
