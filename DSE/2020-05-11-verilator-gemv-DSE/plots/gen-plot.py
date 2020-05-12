@@ -60,9 +60,10 @@ for idx in range(len(modes)):
   ys2    = list(map(lambda x: float(x[mode]), data_256))
   ax0.bar(x+offset, ys0, width)
   ax1.bar(x+offset, ys1, width)
-  ax2.bar(x+offset, ys2, width)
+  ax2.bar(x+offset, ys2, width, label=mode)
 
-ax0.set_ylim(bottom=0)
+#ax0.set_ylim(bottom=0)
+ax2.legend()
 
 
 # create multi bar chart with 3 subplots that share same title
