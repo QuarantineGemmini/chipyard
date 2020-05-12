@@ -1,0 +1,109 @@
+[*]
+[*] GTKWave Analyzer v3.3.102 (w)1999-2019 BSI
+[*] Mon Apr 13 05:28:22 2020
+[*]
+[dumpfile] "/k/work/cy-gemmini/sims/verilator/logs/2020-04-12_22-01-02__pk__hw_tiler__hw_g2_dse8__gemm-pk.vcd"
+[dumpfile_mtime] "Mon Apr 13 05:04:04 2020"
+[dumpfile_size] 5064657742
+[savefile] "/k/work/cy-gemmini/sims/verilator/gtkwave/gemmini-g2-exec.gtkw"
+[timestart] 1144201
+[size] 1916 1161
+[pos] -1 -1
+*-7.000000 1144509 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.TestHarness.
+[treeopen] TOP.TestHarness.top.
+[treeopen] TOP.TestHarness.top.tile.
+[treeopen] TOP.TestHarness.top.tile.v.
+[treeopen] TOP.TestHarness.top.tile.v.exec.
+[sst_width] 350
+[signals_width] 474
+[sst_expanded] 1
+[sst_vpaned_height] 343
+@28
+TOP.TestHarness.top.tile.v.exec.clock
+@800200
+-decode
+@28
+[color] 7
+TOP.TestHarness.top.tile.v.exec.io_cmd_ready
+[color] 1
+TOP.TestHarness.top.tile.v.exec.io_cmd_valid
+@24
+[color] 1
+TOP.TestHarness.top.tile.v.exec.io_cmd_bits_rob_id[3:0]
+@2024
+[color] 7
+^1 /k/work/cy-gemmini/sims/verilator/gtkwave/funct.filter
+TOP.TestHarness.top.tile.v.exec.io_cmd_bits_cmd_inst_funct[6:0]
+@22
+[color] 7
+TOP.TestHarness.top.tile.v.exec.io_cmd_bits_cmd_rs1[63:0]
+[color] 7
+TOP.TestHarness.top.tile.v.exec.io_cmd_bits_cmd_rs2[63:0]
+[color] 2
+TOP.TestHarness.top.tile.v.exec.rs1s_0[63:0]
+[color] 2
+TOP.TestHarness.top.tile.v.exec.rs2s_0[63:0]
+[color] 2
+TOP.TestHarness.top.tile.v.exec.rs1s_1[63:0]
+[color] 2
+TOP.TestHarness.top.tile.v.exec.rs2s_1[63:0]
+@28
+[color] 3
+TOP.TestHarness.top.tile.v.exec.multiply_garbage
+[color] 3
+TOP.TestHarness.top.tile.v.exec.preload_cmd_place
+[color] 3
+TOP.TestHarness.top.tile.v.exec.preload_zeros
+[color] 2
+TOP.TestHarness.top.tile.v.exec.DoConfig
+[color] 2
+TOP.TestHarness.top.tile.v.exec.DoComputes_0
+[color] 2
+TOP.TestHarness.top.tile.v.exec.DoPreloads_0
+[color] 2
+TOP.TestHarness.top.tile.v.exec.DoPreloads_1
+@2024
+[color] 7
+^2 /k/work/cy-gemmini/sims/verilator/gtkwave/new-ex-ctrl-state.filter
+TOP.TestHarness.top.tile.v.exec.state[1:0]
+[color] 7
+^2 /k/work/cy-gemmini/sims/verilator/gtkwave/new-ex-ctrl-state.filter
+TOP.TestHarness.top.tile.v.exec.state_n[1:0]
+@1000200
+-decode
+@800200
+-exec-output
+@28
+TOP.TestHarness.top.tile.v.exec.io_busy
+@22
+[color] 1
+TOP.TestHarness.top.tile.v.exec.io_completed_bits[3:0]
+@28
+[color] 1
+TOP.TestHarness.top.tile.v.exec.io_completed_valid
+@1000200
+-exec-output
+@800200
+-mesh-io
+@28
+[color] 7
+TOP.TestHarness.top.tile.v.exec.mesh.io_tag_in_ready
+[color] 7
+TOP.TestHarness.top.tile.v.exec.mesh.io_tag_in_valid
+[color] 7
+TOP.TestHarness.top.tile.v.exec.mesh.io_tag_in_bits_rob_id_valid
+@22
+[color] 7
+TOP.TestHarness.top.tile.v.exec.mesh.io_tag_in_bits_rob_id_bits[3:0]
+@28
+TOP.TestHarness.top.tile.v.exec.mesh.is_last_row_output
+@22
+TOP.TestHarness.top.tile.v.exec.mesh.io_tag_out_rob_id_bits[3:0]
+@28
+TOP.TestHarness.top.tile.v.exec.mesh.io_tag_out_rob_id_valid
+@1000200
+-mesh-io
+[pattern_trace] 1
+[pattern_trace] 0
