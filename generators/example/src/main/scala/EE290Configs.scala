@@ -344,3 +344,15 @@ class FgGemmini2dim16fg4 extends Config(
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++
   new freechips.rocketchip.system.BaseConfig)
 
+//============================================================================
+// Gemmini1/Gemmini2 best 32x32 mesh with boom
+//============================================================================
+
+class Gemmini2dim32sp16acc64bus128largeBoom extends Config(
+  gemmini.WithGemmini2dim32sp16acc64bus128() ++
+  new LargeBoomConfig)
+
+class Gemminidim32sp16acc64bus128largeBoom extends Config(
+  gemmini.WithGemminidim32sp16acc64bus128() ++
+  new LargeBoomConfig)
+
